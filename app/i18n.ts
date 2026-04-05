@@ -6,7 +6,7 @@ export const translations = {
     rules: 'Правила',
     hideRules: 'Приховати',
     showRules: 'Показати',
-    playerName: 'Ім\'я гравця',
+    playerName: 'Ім\'я',
     playerNameSave: 'Зберегти',
     round: 'Раунд',
     score: 'Очки',
@@ -38,8 +38,8 @@ export const translations = {
       },
     },
     bonuses: {
-      upperBonus: 'Бонус верху (≥63): 35',
-      yahtzeeBonus: 'Бонус Yahtzee:100',
+      upperBonus: 'Бонус верху',
+      yahtzeeBonus: 'Бонус Yahtzee',
     },
     rules_table: {
       combination: 'Комбінація',
@@ -90,7 +90,7 @@ export const translations = {
     rules: 'Rules',
     hideRules: 'Hide',
     showRules: 'Show',
-    playerName: 'Player Name',
+    playerName: 'Name',
     playerNameSave: 'Save',
     round: 'Round',
     score: 'Score',
@@ -122,8 +122,8 @@ export const translations = {
       },
     },
     bonuses: {
-      upperBonus: 'Upper Bonus (≥63):35',
-      yahtzeeBonus: 'Yahtzee Bonus:100',
+      upperBonus: 'Upper Bonus',
+      yahtzeeBonus: 'Yahtzee Bonus',
     },
     rules_table: {
       combination: 'Combination',
