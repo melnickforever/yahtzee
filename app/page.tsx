@@ -34,21 +34,27 @@ export default function Home() {
               </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                placeholder={t.playerName}
-                className="player-input"
-              />
-              <button
-                onClick={handleSavePlayerName}
-                disabled={!playerName.trim()}
-                className="player-save-button"
-              >
-                {t.playerNameSave}
-              </button>
+            <div>
+              <label htmlFor="playerNameInput" className="player-label">
+                {t.playerName}
+              </label>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <input
+                  id="playerNameInput"
+                  type="text"
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  placeholder={t.playerName}
+                  className="player-input"
+                />
+                <button
+                  onClick={handleSavePlayerName}
+                  disabled={!playerName.trim()}
+                  className="player-save-button"
+                >
+                  {t.playerNameSave}
+                </button>
+              </div>
             </div>
           )}
         </div>
