@@ -65,7 +65,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
   };
 
   const getCategoryTotal = (category: CategoryKey) => {
-    return scores[category].reduce((sum, score) => sum + (score ?? 0), 0);
+    return scores[category].reduce((sum: number, score) => sum + (score ?? 0), 0);
   };
 
   const getRoundTotal = (round: number, section: 'upper' | 'lower') => {
