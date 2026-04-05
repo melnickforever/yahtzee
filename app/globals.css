@@ -76,6 +76,7 @@ input[type='text'] {
   position: absolute;
   top: 16px;
   right: 16px;
+  z-index: 10;
 }
 
 .language-select {
@@ -300,6 +301,11 @@ input[type='text'] {
   padding: 16px;
 }
 
+.score-grid-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Score Grid */
 .score-grid {
   display: grid;
@@ -310,6 +316,7 @@ input[type='text'] {
   border-radius: 4px;
   overflow: hidden;
   margin-top: 16px;
+  min-width: min-content;
 }
 
 .score-grid-lower {
@@ -510,6 +517,17 @@ input[type='text'] {
   text-align: center;
 }
 
+.score-cell-select {
+  width: 100%;
+  padding: 4px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   table {
     font-size: 12px;
@@ -522,10 +540,26 @@ input[type='text'] {
 
   .main-container {
     padding: 8px;
+    padding-top: 80px;
+  }
+
+  .language-switcher {
+    position: fixed;
+    top: 8px;
+    right: 8px;
   }
 
   .score-table th,
   .score-table td {
     padding: 6px !important;
+  }
+
+  .score-grid {
+    grid-template-columns: 120px repeat(6, 70px) 70px;
+  }
+
+  .score-grid-wrapper {
+    margin-left: -8px;
+    margin-right: -8px;
   }
 }
