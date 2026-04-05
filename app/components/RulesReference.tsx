@@ -92,39 +92,32 @@ export function RulesReference({ language }: RulesReferenceProps) {
   ];
 
   return (
-    <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-        <h2 style={{ margin: 0 }}>{t.rules}</h2>
+    <div className="rules-container">
+      <div className="rules-header">
+        <h2>{t.rules}</h2>
         <button
           onClick={() => setIsVisible(!isVisible)}
-          style={{
-            padding: '6px 12px',
-            backgroundColor: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
+          className="rules-button"
         >
           {isVisible ? t.hideRules : t.showRules}
         </button>
       </div>
 
       {isVisible && (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
+        <table className="rules-table">
           <thead>
-            <tr style={{ backgroundColor: '#e9ecef', borderBottom: '2px solid #dee2e6' }}>
-              <th style={{ padding: '8px', textAlign: 'left', fontWeight: 'bold' }}>{t.rules_table.combination}</th>
-              <th style={{ padding: '8px', textAlign: 'left', fontWeight: 'bold' }}>{t.rules_table.description}</th>
-              <th style={{ padding: '8px', textAlign: 'left', fontWeight: 'bold' }}>{t.rules_table.points}</th>
+            <tr className="rules-table-header">
+              <th>{t.rules_table.combination}</th>
+              <th>{t.rules_table.description}</th>
+              <th>{t.rules_table.points}</th>
             </tr>
           </thead>
           <tbody>
             {rulesData.map((row, index) => (
-              <tr key={index} style={{ borderBottom: '1px solid #dee2e6', backgroundColor: row.isBonus ? '#ffe6e6' : (index % 2 === 0 ? '#fff' : '#f9f9f9') }}>
-                <td style={{ padding: '8px', fontWeight: row.isBonus ? 'bold' : 'normal' }}>{row.combination}</td>
-                <td style={{ padding: '8px' }}>{row.description}</td>
-                <td style={{ padding: '8px', fontWeight: row.isBonus ? 'bold' : 'normal' }}>{row.points}</td>
+              <tr key={index} className={row.isBonus ? 'rules-table-bonus' : ''}>
+                <td>{row.combination}</td>
+                <td>{row.description}</td>
+                <td>{row.points}</td>
               </tr>
             ))}
           </tbody>

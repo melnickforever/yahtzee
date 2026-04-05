@@ -44,14 +44,7 @@ export function ScoreCell({ value, onChange }: ScoreCellProps) {
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
         autoFocus
-        style={{
-          width: '100%',
-          padding: '4px',
-          border: '2px solid #007bff',
-          borderRadius: '4px',
-          fontSize: '14px',
-          textAlign: 'center',
-        }}
+        className="score-cell-input"
       />
     );
   }
@@ -59,17 +52,7 @@ export function ScoreCell({ value, onChange }: ScoreCellProps) {
   return (
     <div
       onClick={handleClick}
-      style={{
-        padding: '8px',
-        backgroundColor: '#f0f0f0',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        textAlign: 'center',
-        minHeight: '24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      className="score-cell-display"
     >
       {value !== null ? value : '—'}
     </div>

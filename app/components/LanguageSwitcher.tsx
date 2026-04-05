@@ -9,20 +9,11 @@ interface LanguageSwitcherProps {
 
 export function LanguageSwitcher({ currentLanguage, onLanguageChange }: LanguageSwitcherProps) {
   return (
-    <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+    <div className="language-switcher">
       <select
         value={currentLanguage}
         onChange={(e) => onLanguageChange(e.target.value as Language)}
-        style={{
-          padding: '8px 12px',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          fontSize: '14px',
-          fontWeight: 'bold',
-        }}
+        className="language-select"
       >
         <option value="uk">Укр</option>
         <option value="en">Eng</option>

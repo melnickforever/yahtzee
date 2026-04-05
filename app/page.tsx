@@ -12,11 +12,11 @@ export default function Home() {
   const t = translations[language];
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="page-container">
       <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
-      <main style={{ maxWidth: '1000px', margin: '0 auto', padding: '16px' }}>
-        <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#f0f0f0', borderRadius: '8px' }}>
-          <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
+      <main className="main-container">
+        <div className="player-section">
+          <label className="player-label">
             {t.playerName}
           </label>
           <input
@@ -24,14 +24,7 @@ export default function Home() {
             value={playerName}
             onChange={(e) => setPlayerName(e.target.value)}
             placeholder={t.playerName}
-            style={{
-              width: '100%',
-              padding: '10px',
-              fontSize: '16px',
-              border: '2px solid #007bff',
-              borderRadius: '4px',
-              boxSizing: 'border-box',
-            }}
+            className="player-input"
           />
         </div>
         <RulesReference language={language} />

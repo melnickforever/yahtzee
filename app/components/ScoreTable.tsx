@@ -83,191 +83,191 @@ export function ScoreTable({ language }: ScoreTableProps) {
   const grandTotal = upperGrandTotal + lowerGrandTotal + upperBonus + yahtzeeBonus;
 
   return (
-    <div style={{ padding: '16px' }}>
+    <div className="score-table-container">
       <h2>{t.title}</h2>
 
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '16px' }}>
+      <table className="score-table">
         <thead>
-          <tr style={{ backgroundColor: '#e9ecef', borderBottom: '2px solid #dee2e6' }}>
-            <th style={{ padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>{t.categories.upper.title}</th>
+          <tr className="score-table-header">
+            <th>{t.categories.upper.title}</th>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <th key={i} style={{ padding: '12px', textAlign: 'center', fontWeight: 'bold' }}>
+              <th key={i}>
                 {t.round} {i + 1}
               </th>
             ))}
-            <th style={{ padding: '12px', textAlign: 'center', fontWeight: 'bold', backgroundColor: '#fff3cd' }}>{t.total}</th>
+            <th className="score-table-header-total">{t.total}</th>
           </tr>
         </thead>
         <tbody>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.ones}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.upper.ones}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.ones[i]} onChange={(value) => handleScoreChange('ones', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('ones')}</td>
+            <td className="score-category-total">{getCategoryTotal('ones')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f9f9f9' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.twos}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.upper.twos}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.twos[i]} onChange={(value) => handleScoreChange('twos', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('twos')}</td>
+            <td className="score-category-total">{getCategoryTotal('twos')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.threes}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.upper.threes}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.threes[i]} onChange={(value) => handleScoreChange('threes', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('threes')}</td>
+            <td className="score-category-total">{getCategoryTotal('threes')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f9f9f9' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.fours}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.upper.fours}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.fours[i]} onChange={(value) => handleScoreChange('fours', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('fours')}</td>
+            <td className="score-category-total">{getCategoryTotal('fours')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.fives}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.upper.fives}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.fives[i]} onChange={(value) => handleScoreChange('fives', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('fives')}</td>
+            <td className="score-category-total">{getCategoryTotal('fives')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f9f9f9' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.sixes}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.upper.sixes}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.sixes[i]} onChange={(value) => handleScoreChange('sixes', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('sixes')}</td>
+            <td className="score-category-total">{getCategoryTotal('sixes')}</td>
           </tr>
-          <tr style={{ borderBottom: '2px solid #dee2e6', backgroundColor: '#e9ecef', fontWeight: 'bold' }}>
-            <td style={{ padding: '12px' }}>{t.categories.upper.subtotal}</td>
+          <tr className="score-subtotal-row">
+            <td className="score-category-name">{t.categories.upper.subtotal}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 {getRoundTotal(i, 'upper')}
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd' }}>{upperGrandTotal}</td>
+            <td>{upperGrandTotal}</td>
           </tr>
-          <tr style={{ borderBottom: '2px solid #dee2e6', backgroundColor: '#ffe6e6' }}>
-            <td style={{ padding: '12px' }}>{t.bonuses.upperBonus}</td>
+          <tr className="score-bonus-row">
+            <td className="score-category-name">{t.bonuses.upperBonus}</td>
             {Array.from({ length: ROUNDS }, () => (
-              <td key="bonus" style={{ padding: '12px', textAlign: 'center' }}>—</td>
+              <td key="bonus">—</td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', fontWeight: 'bold' }}>{upperBonus}</td>
+            <td className="score-bonus-value">{upperBonus}</td>
           </tr>
         </tbody>
       </table>
 
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '32px' }}>
+      <table className="score-table">
         <thead>
-          <tr style={{ backgroundColor: '#e9ecef', borderBottom: '2px solid #dee2e6' }}>
-            <th style={{ padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>{t.categories.lower.title}</th>
+          <tr className="score-table-header">
+            <th>{t.categories.lower.title}</th>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <th key={i} style={{ padding: '12px', textAlign: 'center', fontWeight: 'bold' }}>
+              <th key={i}>
                 {t.round} {i + 1}
               </th>
             ))}
-            <th style={{ padding: '12px', textAlign: 'center', fontWeight: 'bold', backgroundColor: '#fff3cd' }}>{t.total}</th>
+            <th className="score-table-header-total">{t.total}</th>
           </tr>
         </thead>
         <tbody>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.threeOfAKind}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.threeOfAKind}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.threeOfAKind[i]} onChange={(value) => handleScoreChange('threeOfAKind', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('threeOfAKind')}</td>
+            <td className="score-category-total">{getCategoryTotal('threeOfAKind')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f9f9f9' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.fourOfAKind}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.fourOfAKind}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.fourOfAKind[i]} onChange={(value) => handleScoreChange('fourOfAKind', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('fourOfAKind')}</td>
+            <td className="score-category-total">{getCategoryTotal('fourOfAKind')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.fullHouse}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.fullHouse}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.fullHouse[i]} onChange={(value) => handleScoreChange('fullHouse', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('fullHouse')}</td>
+            <td className="score-category-total">{getCategoryTotal('fullHouse')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f9f9f9' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.smallStraight}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.smallStraight}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.smallStraight[i]} onChange={(value) => handleScoreChange('smallStraight', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('smallStraight')}</td>
+            <td className="score-category-total">{getCategoryTotal('smallStraight')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.largeStraight}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.largeStraight}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.largeStraight[i]} onChange={(value) => handleScoreChange('largeStraight', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('largeStraight')}</td>
+            <td className="score-category-total">{getCategoryTotal('largeStraight')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f9f9f9' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.yahtzee}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.yahtzee}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.yahtzee[i]} onChange={(value) => handleScoreChange('yahtzee', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('yahtzee')}</td>
+            <td className="score-category-total">{getCategoryTotal('yahtzee')}</td>
           </tr>
-          <tr style={{ borderBottom: '1px solid #dee2e6' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.chance}</td>
+          <tr>
+            <td className="score-category-name">{t.categories.lower.chance}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 <ScoreCell value={scores.chance[i]} onChange={(value) => handleScoreChange('chance', i, value)} />
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd', fontWeight: 'bold' }}>{getCategoryTotal('chance')}</td>
+            <td className="score-category-total">{getCategoryTotal('chance')}</td>
           </tr>
-          <tr style={{ borderBottom: '2px solid #dee2e6', backgroundColor: '#e9ecef', fontWeight: 'bold' }}>
-            <td style={{ padding: '12px' }}>{t.categories.lower.subtotal}</td>
+          <tr className="score-subtotal-row">
+            <td className="score-category-name">{t.categories.lower.subtotal}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
-              <td key={i} style={{ padding: '12px', textAlign: 'center' }}>
+              <td key={i}>
                 {getRoundTotal(i, 'lower')}
               </td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', backgroundColor: '#fff3cd' }}>{lowerGrandTotal}</td>
+            <td>{lowerGrandTotal}</td>
           </tr>
-          <tr style={{ borderBottom: '2px solid #dee2e6', backgroundColor: '#ffe6e6' }}>
-            <td style={{ padding: '12px' }}>{t.bonuses.yahtzeeBonus}</td>
+          <tr className="score-bonus-row">
+            <td className="score-category-name">{t.bonuses.yahtzeeBonus}</td>
             {Array.from({ length: ROUNDS }, () => (
-              <td key="bonus" style={{ padding: '12px', textAlign: 'center' }}>—</td>
+              <td key="bonus">—</td>
             ))}
-            <td style={{ padding: '12px', textAlign: 'center', fontWeight: 'bold' }}>{yahtzeeBonus}</td>
+            <td className="score-bonus-value">{yahtzeeBonus}</td>
           </tr>
         </tbody>
       </table>
 
-      <div style={{ marginTop: '32px', padding: '16px', backgroundColor: '#d4edda', borderRadius: '8px', fontSize: '18px', fontWeight: 'bold', textAlign: 'center' }}>
+      <div className="grand-total">
         {t.grandTotal}: {grandTotal}
       </div>
     </div>
