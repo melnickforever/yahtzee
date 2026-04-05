@@ -6,9 +6,10 @@ interface ScoreCellProps {
   value: number | null;
   onChange: (value: number | null) => void;
   disabled?: boolean;
+  fixedValue?: number | null;
 }
 
-export function ScoreCell({ value, onChange, disabled }: ScoreCellProps) {
+export function ScoreCell({ value, onChange, disabled, fixedValue }: ScoreCellProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value?.toString() ?? '');
 
@@ -29,6 +30,15 @@ export function ScoreCell({ value, onChange, disabled }: ScoreCellProps) {
     setIsEditing(false);
   };
 
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = e.target.value;
+    if (selected === '') {
+      onChange(null);
+    } else {
+      onChange(parseInt(selected, 10));
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSave();
@@ -37,6 +47,38 @@ export function ScoreCell({ value, onChange, disabled }: ScoreCellProps) {
     }
   };
 
+  if (fixedValue !== null && fixedValue !== undefined) {
+    // For fixed value categories, render a dropdown
+    if (isEditing) {
+      return (
+        <select
+          value={value ?? ''}
+          onChange={handleSelectChange}
+          onBlur={() => setIsEditing(false)}
+          autoFocus
+          className="score-cell-select"
+        >
+          <option value="">—</option>
+          <option value={fixedValue}>{fixedValue}</option>
+        </select>
+      );
+    }
+
+    return (
+      <div
+        onClick={handleClick}
+        className="score-cell-display"
+        style={{
+          opacity: disabled ? 0.5 : 1,
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        }}
+      >
+        {value !== null ? value : '—'}
+      </div>
+    );
+  }
+
+  // For non-fixed value categories, render a text input
   if (isEditing) {
     return (
       <input

@@ -99,28 +99,43 @@ export function ScoreTable({ language }: ScoreTableProps) {
   // Grand total
   const grandTotal = upperGrandTotal + lowerGrandTotal + upperBonus + yahtzeeBonus;
 
-  const renderGridRow = (categoryKey: CategoryKey, categoryName: string) => (
-    <>
-      <div className="score-grid-cell score-grid-category">{categoryName}</div>
-      {Array.from({ length: ROUNDS }, (_, i) => (
-        <div key={i} className="score-grid-cell">
-          <ScoreCell
-            value={scores[categoryKey][i]}
-            onChange={(value) => handleScoreChange(categoryKey, i, value)}
-            disabled={isRoundFilled(i, categoryKey)}
-          />
-        </div>
-      ))}
-      <div className="score-grid-cell score-grid-total">{getCategoryTotal(categoryKey)}</div>
-    </>
-  );
+  const getFixedValue = (categoryKey: CategoryKey): number | null => {
+    const fixedValues: Record<string, number> = {
+      fullHouse: 25,
+      smallStraight: 30,
+      largeStraight: 40,
+      yahtzee: 50,
+    };
+    return fixedValues[categoryKey] ?? null;
+  };
+
+  const renderGridRow = (categoryKey: CategoryKey, categoryName: string) => {
+    const fixedValue = getFixedValue(categoryKey);
+    return (
+      <>
+        <div className="score-grid-cell score-grid-category">{categoryName}</div>
+        {Array.from({ length: ROUNDS }, (_, i) => (
+          <div key={i} className="score-grid-cell">
+            <ScoreCell
+              value={scores[categoryKey][i]}
+              onChange={(value) => handleScoreChange(categoryKey, i, value)}
+              disabled={isRoundFilled(i, categoryKey)}
+              fixedValue={fixedValue}
+            />
+          </div>
+        ))}
+        <div className="score-grid-cell score-grid-total">{getCategoryTotal(categoryKey)}</div>
+      </>
+    );
+  };
 
   return (
     <div className="score-table-container">
       <h2>{t.title}</h2>
 
       {/* Upper Section */}
-      <div className="score-grid">
+      <div className="score-grid-wrapper">
+        <div className="score-grid">
         <div className="score-grid-header">
           <div className="score-grid-cell">{t.categories.upper.title}</div>
           {Array.from({ length: ROUNDS }, (_, i) => (
@@ -157,10 +172,12 @@ export function ScoreTable({ language }: ScoreTableProps) {
           ))}
           <div className="score-grid-cell">{upperBonus}</div>
         </div>
+        </div>
       </div>
 
       {/* Lower Section */}
-      <div className="score-grid score-grid-lower">
+      <div className="score-grid-wrapper">
+        <div className="score-grid score-grid-lower">
         <div className="score-grid-header">
           <div className="score-grid-cell">{t.categories.lower.title}</div>
           {Array.from({ length: ROUNDS }, (_, i) => (
@@ -197,6 +214,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
             </div>
           ))}
           <div className="score-grid-cell">{yahtzeeBonus}</div>
+        </div>
         </div>
       </div>
 
