@@ -15,42 +15,42 @@ export function RulesReference({ language }: RulesReferenceProps) {
     {
       combination: t.rules_table.ones,
       description: t.rules_table.onesDesc,
-      points: 'Varies',
+      points: t.rules_table.varies,
     },
     {
       combination: t.rules_table.twos,
       description: t.rules_table.twosDesc,
-      points: 'Varies',
+      points: t.rules_table.varies,
     },
     {
       combination: t.rules_table.threes,
       description: t.rules_table.threesDesc,
-      points: 'Varies',
+      points: t.rules_table.varies,
     },
     {
       combination: t.rules_table.fours,
       description: t.rules_table.foursDesc,
-      points: 'Varies',
+      points: t.rules_table.varies,
     },
     {
       combination: t.rules_table.fives,
       description: t.rules_table.fivesDesc,
-      points: 'Varies',
+      points: t.rules_table.varies,
     },
     {
       combination: t.rules_table.sixes,
       description: t.rules_table.sixesDesc,
-      points: 'Varies',
+      points: t.rules_table.varies,
     },
     {
       combination: t.rules_table.threeOfAKind,
       description: t.rules_table.threeOfAKindDesc,
-      points: 'Sum of all',
+      points: t.rules_table.sumOfAll,
     },
     {
       combination: t.rules_table.fourOfAKind,
       description: t.rules_table.fourOfAKindDesc,
-      points: 'Sum of all',
+      points: t.rules_table.sumOfAll,
     },
     {
       combination: t.rules_table.fullHouse,
@@ -75,7 +75,19 @@ export function RulesReference({ language }: RulesReferenceProps) {
     {
       combination: t.rules_table.chance,
       description: t.rules_table.chanceDesc,
-      points: 'Sum of all',
+      points: t.rules_table.sumOfAll,
+    },
+    {
+      combination: t.rules_table.upperBonus,
+      description: t.rules_table.upperBonusDesc,
+      points: t.rules_table.upperBonusPoints,
+      isBonus: true,
+    },
+    {
+      combination: t.rules_table.yahtzeeBonus,
+      description: t.rules_table.yatzheeBonusDesc,
+      points: t.rules_table.yatzheeBonusPoints,
+      isBonus: true,
     },
   ];
 
@@ -109,10 +121,10 @@ export function RulesReference({ language }: RulesReferenceProps) {
           </thead>
           <tbody>
             {rulesData.map((row, index) => (
-              <tr key={index} style={{ borderBottom: '1px solid #dee2e6', backgroundColor: index % 2 === 0 ? '#fff' : '#f9f9f9' }}>
-                <td style={{ padding: '8px' }}>{row.combination}</td>
+              <tr key={index} style={{ borderBottom: '1px solid #dee2e6', backgroundColor: row.isBonus ? '#ffe6e6' : (index % 2 === 0 ? '#fff' : '#f9f9f9') }}>
+                <td style={{ padding: '8px', fontWeight: row.isBonus ? 'bold' : 'normal' }}>{row.combination}</td>
                 <td style={{ padding: '8px' }}>{row.description}</td>
-                <td style={{ padding: '8px' }}>{row.points}</td>
+                <td style={{ padding: '8px', fontWeight: row.isBonus ? 'bold' : 'normal' }}>{row.points}</td>
               </tr>
             ))}
           </tbody>
