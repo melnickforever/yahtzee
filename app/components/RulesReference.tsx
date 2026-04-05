@@ -81,13 +81,13 @@ export function RulesReference({ language }: RulesReferenceProps) {
       combination: t.rules_table.upperBonus,
       description: t.rules_table.upperBonusDesc,
       points: t.rules_table.upperBonusPoints,
-      isBonus: false,
+      isBonus: true,
     },
     {
       combination: t.rules_table.yahtzeeBonus,
       description: t.rules_table.yatzheeBonusDesc,
       points: t.rules_table.yatzheeBonusPoints,
-      isBonus: false,
+      isBonus: true,
     },
   ];
 
@@ -104,24 +104,23 @@ export function RulesReference({ language }: RulesReferenceProps) {
       </div>
 
       {isVisible && (
-        <table className="rules-table">
-          <thead>
-            <tr className="rules-table-header">
-              <th>{t.rules_table.combination}</th>
-              <th>{t.rules_table.description}</th>
-              <th>{t.rules_table.points}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rulesData.map((row, index) => (
-              <tr key={index} className={row.isBonus ? 'rules-table-bonus' : ''}>
-                <td>{row.combination}</td>
-                <td>{row.description}</td>
-                <td>{row.points}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="rules-grid">
+          <div className="rules-grid-header">
+            <div className="rules-grid-cell">{t.rules_table.combination}</div>
+            <div className="rules-grid-cell">{t.rules_table.description}</div>
+            <div className="rules-grid-cell">{t.rules_table.points}</div>
+          </div>
+          {rulesData.map((row, index) => (
+            <div
+              key={index}
+              className={`rules-grid-row ${row.isBonus ? 'rules-grid-bonus' : ''}`}
+            >
+              <div className="rules-grid-cell">{row.combination}</div>
+              <div className="rules-grid-cell">{row.description}</div>
+              <div className="rules-grid-cell">{row.points}</div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

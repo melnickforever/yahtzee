@@ -188,6 +188,66 @@ input[type='text'] {
   cursor: pointer;
 }
 
+/* Rules Grid */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 0;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.rules-grid-header {
+  display: contents;
+}
+
+.rules-grid-header > .rules-grid-cell {
+  background-color: #e9ecef;
+  font-weight: bold;
+  padding: 12px 8px;
+  border-bottom: 2px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+}
+
+.rules-grid-header > .rules-grid-cell:last-child {
+  border-right: none;
+}
+
+.rules-grid-row {
+  display: contents;
+}
+
+.rules-grid-row:nth-child(odd) > .rules-grid-cell {
+  background-color: #fff;
+}
+
+.rules-grid-row:nth-child(even) > .rules-grid-cell {
+  background-color: #f9f9f9;
+}
+
+.rules-grid-cell {
+  padding: 8px;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.rules-grid-cell:last-child {
+  border-right: none;
+}
+
+.rules-grid-row:last-child > .rules-grid-cell {
+  border-bottom: none;
+}
+
+.rules-grid-bonus .rules-grid-cell {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  font-weight: bold;
+}
+
 .rules-table {
   width: 100%;
   border-collapse: collapse;
@@ -238,6 +298,92 @@ input[type='text'] {
 /* Score Table */
 .score-table-container {
   padding: 16px;
+}
+
+/* Score Grid */
+.score-grid {
+  display: grid;
+  grid-template-columns: 150px repeat(6, 1fr) 80px;
+  gap: 0;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.score-grid-lower {
+  margin-top: 32px;
+}
+
+.score-grid-header {
+  display: contents;
+}
+
+.score-grid-header > .score-grid-cell {
+  background-color: #e9ecef;
+  font-weight: bold;
+  padding: 12px;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 2px solid #dee2e6;
+  text-align: center;
+}
+
+.score-grid-header > .score-grid-cell:first-child {
+  text-align: left;
+}
+
+.score-grid-header-total {
+  background-color: #fff3cd !important;
+}
+
+.score-grid-row {
+  display: contents;
+}
+
+.score-grid-row > .score-grid-cell {
+  padding: 12px;
+  text-align: center;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.score-grid-row > .score-grid-cell:first-child {
+  text-align: left;
+}
+
+.score-grid-row > .score-grid-cell:last-child {
+  border-right: none;
+}
+
+.score-grid-row:nth-child(odd) > .score-grid-cell {
+  background-color: #fff;
+}
+
+.score-grid-row:nth-child(even) > .score-grid-cell {
+  background-color: #f9f9f9;
+}
+
+.score-grid-category {
+  font-weight: normal;
+}
+
+.score-grid-total {
+  background-color: #fff3cd;
+  font-weight: bold;
+}
+
+.score-grid-subtotal > .score-grid-cell {
+  background-color: #e7f1ff !important;
+  font-weight: bold;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.score-grid-bonus > .score-grid-cell {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  font-weight: bold;
+  border-bottom: none;
 }
 
 .score-table {
