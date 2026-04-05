@@ -81,13 +81,13 @@ export function RulesReference({ language }: RulesReferenceProps) {
       combination: t.rules_table.upperBonus,
       description: t.rules_table.upperBonusDesc,
       points: t.rules_table.upperBonusPoints,
-      isBonus: true,
+      isBonus: false,
     },
     {
       combination: t.rules_table.yahtzeeBonus,
       description: t.rules_table.yatzheeBonusDesc,
       points: t.rules_table.yatzheeBonusPoints,
-      isBonus: true,
+      isBonus: false,
     },
   ];
 
