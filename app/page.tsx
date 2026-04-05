@@ -22,6 +22,7 @@ export default function Home() {
     <div className="page-container">
       <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
       <main className="main-container">
+        <h1>{t.title}</h1>
         <div className="player-section">
           {isPlayerNameSaved ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
