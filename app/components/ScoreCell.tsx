@@ -5,13 +5,15 @@ import { useState } from 'react';
 interface ScoreCellProps {
   value: number | null;
   onChange: (value: number | null) => void;
+  disabled?: boolean;
 }
 
-export function ScoreCell({ value, onChange }: ScoreCellProps) {
+export function ScoreCell({ value, onChange, disabled }: ScoreCellProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value?.toString() ?? '');
 
   const handleClick = () => {
+    if (disabled) return;
     setIsEditing(true);
     setTempValue(value?.toString() ?? '');
   };
@@ -53,6 +55,10 @@ export function ScoreCell({ value, onChange }: ScoreCellProps) {
     <div
       onClick={handleClick}
       className="score-cell-display"
+      style={{
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
     >
       {value !== null ? value : '—'}
     </div>

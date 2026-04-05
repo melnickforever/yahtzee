@@ -47,10 +47,27 @@ export function ScoreTable({ language }: ScoreTableProps) {
   });
 
   const handleScoreChange = (category: CategoryKey, round: number, value: number | null) => {
+    // Check if another cell in this round is already filled
+    if (value !== null) {
+      const roundHasFilled = Object.entries(scores).some(
+        ([cat, roundScores]) => cat !== category && roundScores[round] !== null
+      );
+      if (roundHasFilled) {
+        alert(t.oneCellPerRound || 'Only one cell per round allowed');
+        return;
+      }
+    }
+
     setScores((prev) => ({
       ...prev,
       [category]: prev[category].map((score, idx) => (idx === round ? value : score)),
     }));
+  };
+
+  const isRoundFilled = (round: number, currentCategory?: CategoryKey) => {
+    return Object.entries(scores).some(
+      ([cat, roundScores]) => (currentCategory ? cat !== currentCategory : true) && roundScores[round] !== null
+    );
   };
 
   const getCategoryTotal = (category: CategoryKey) => {
@@ -103,7 +120,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.upper.ones}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.ones[i]} onChange={(value) => handleScoreChange('ones', i, value)} />
+                <ScoreCell
+                  value={scores.ones[i]}
+                  onChange={(value) => handleScoreChange('ones', i, value)}
+                  disabled={isRoundFilled(i, 'ones')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('ones')}</td>
@@ -112,7 +133,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.upper.twos}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.twos[i]} onChange={(value) => handleScoreChange('twos', i, value)} />
+                <ScoreCell
+                  value={scores.twos[i]}
+                  onChange={(value) => handleScoreChange('twos', i, value)}
+                  disabled={isRoundFilled(i, 'twos')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('twos')}</td>
@@ -121,7 +146,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.upper.threes}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.threes[i]} onChange={(value) => handleScoreChange('threes', i, value)} />
+                <ScoreCell
+                  value={scores.threes[i]}
+                  onChange={(value) => handleScoreChange('threes', i, value)}
+                  disabled={isRoundFilled(i, 'threes')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('threes')}</td>
@@ -130,7 +159,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.upper.fours}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.fours[i]} onChange={(value) => handleScoreChange('fours', i, value)} />
+                <ScoreCell
+                  value={scores.fours[i]}
+                  onChange={(value) => handleScoreChange('fours', i, value)}
+                  disabled={isRoundFilled(i, 'fours')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('fours')}</td>
@@ -139,7 +172,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.upper.fives}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.fives[i]} onChange={(value) => handleScoreChange('fives', i, value)} />
+                <ScoreCell
+                  value={scores.fives[i]}
+                  onChange={(value) => handleScoreChange('fives', i, value)}
+                  disabled={isRoundFilled(i, 'fives')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('fives')}</td>
@@ -148,7 +185,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.upper.sixes}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.sixes[i]} onChange={(value) => handleScoreChange('sixes', i, value)} />
+                <ScoreCell
+                  value={scores.sixes[i]}
+                  onChange={(value) => handleScoreChange('sixes', i, value)}
+                  disabled={isRoundFilled(i, 'sixes')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('sixes')}</td>
@@ -189,7 +230,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.threeOfAKind}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.threeOfAKind[i]} onChange={(value) => handleScoreChange('threeOfAKind', i, value)} />
+                <ScoreCell
+                  value={scores.threeOfAKind[i]}
+                  onChange={(value) => handleScoreChange('threeOfAKind', i, value)}
+                  disabled={isRoundFilled(i, 'threeOfAKind')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('threeOfAKind')}</td>
@@ -198,7 +243,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.fourOfAKind}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.fourOfAKind[i]} onChange={(value) => handleScoreChange('fourOfAKind', i, value)} />
+                <ScoreCell
+                  value={scores.fourOfAKind[i]}
+                  onChange={(value) => handleScoreChange('fourOfAKind', i, value)}
+                  disabled={isRoundFilled(i, 'fourOfAKind')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('fourOfAKind')}</td>
@@ -207,7 +256,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.fullHouse}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.fullHouse[i]} onChange={(value) => handleScoreChange('fullHouse', i, value)} />
+                <ScoreCell
+                  value={scores.fullHouse[i]}
+                  onChange={(value) => handleScoreChange('fullHouse', i, value)}
+                  disabled={isRoundFilled(i, 'fullHouse')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('fullHouse')}</td>
@@ -216,7 +269,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.smallStraight}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.smallStraight[i]} onChange={(value) => handleScoreChange('smallStraight', i, value)} />
+                <ScoreCell
+                  value={scores.smallStraight[i]}
+                  onChange={(value) => handleScoreChange('smallStraight', i, value)}
+                  disabled={isRoundFilled(i, 'smallStraight')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('smallStraight')}</td>
@@ -225,7 +282,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.largeStraight}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.largeStraight[i]} onChange={(value) => handleScoreChange('largeStraight', i, value)} />
+                <ScoreCell
+                  value={scores.largeStraight[i]}
+                  onChange={(value) => handleScoreChange('largeStraight', i, value)}
+                  disabled={isRoundFilled(i, 'largeStraight')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('largeStraight')}</td>
@@ -234,7 +295,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.yahtzee}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.yahtzee[i]} onChange={(value) => handleScoreChange('yahtzee', i, value)} />
+                <ScoreCell
+                  value={scores.yahtzee[i]}
+                  onChange={(value) => handleScoreChange('yahtzee', i, value)}
+                  disabled={isRoundFilled(i, 'yahtzee')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('yahtzee')}</td>
@@ -243,7 +308,11 @@ export function ScoreTable({ language }: ScoreTableProps) {
             <td className="score-category-name">{t.categories.lower.chance}</td>
             {Array.from({ length: ROUNDS }, (_, i) => (
               <td key={i}>
-                <ScoreCell value={scores.chance[i]} onChange={(value) => handleScoreChange('chance', i, value)} />
+                <ScoreCell
+                  value={scores.chance[i]}
+                  onChange={(value) => handleScoreChange('chance', i, value)}
+                  disabled={isRoundFilled(i, 'chance')}
+                />
               </td>
             ))}
             <td className="score-category-total">{getCategoryTotal('chance')}</td>

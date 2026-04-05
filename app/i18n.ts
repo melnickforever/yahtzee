@@ -12,6 +12,7 @@ export const translations = {
     total: 'Всього',
     bonus: 'Бонус',
     grandTotal: 'Загальна сума',
+    oneCellPerRound: 'Лише одна клітинка за раунд дозволена',
     categories: {
       upper: {
         title: 'Верхня секція',
@@ -94,6 +95,7 @@ export const translations = {
     total: 'Total',
     bonus: 'Bonus',
     grandTotal: 'Grand Total',
+    oneCellPerRound: 'Only one cell per round allowed',
     categories: {
       upper: {
         title: 'Upper Section',
