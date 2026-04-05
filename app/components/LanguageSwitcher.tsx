@@ -9,35 +9,24 @@ interface LanguageSwitcherProps {
 
 export function LanguageSwitcher({ currentLanguage, onLanguageChange }: LanguageSwitcherProps) {
   return (
-    <div style={{ display: 'flex', gap: '8px', position: 'absolute', top: '16px', right: '16px' }}>
-      <button
-        onClick={() => onLanguageChange('uk')}
+    <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+      <select
+        value={currentLanguage}
+        onChange={(e) => onLanguageChange(e.target.value as Language)}
         style={{
           padding: '8px 12px',
-          backgroundColor: currentLanguage === 'uk' ? '#007bff' : '#ddd',
-          color: currentLanguage === 'uk' ? 'white' : 'black',
+          backgroundColor: '#007bff',
+          color: 'white',
           border: 'none',
           borderRadius: '4px',
           cursor: 'pointer',
-          fontWeight: currentLanguage === 'uk' ? 'bold' : 'normal',
+          fontSize: '14px',
+          fontWeight: 'bold',
         }}
       >
-        Укр
-      </button>
-      <button
-        onClick={() => onLanguageChange('en')}
-        style={{
-          padding: '8px 12px',
-          backgroundColor: currentLanguage === 'en' ? '#007bff' : '#ddd',
-          color: currentLanguage === 'en' ? 'white' : 'black',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          fontWeight: currentLanguage === 'en' ? 'bold' : 'normal',
-        }}
-      >
-        Eng
-      </button>
+        <option value="uk">Укр</option>
+        <option value="en">Eng</option>
+      </select>
     </div>
   );
 }

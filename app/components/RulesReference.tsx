@@ -8,7 +8,7 @@ interface RulesReferenceProps {
 }
 
 export function RulesReference({ language }: RulesReferenceProps) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const t = translations[language];
 
   const rulesData = [
