@@ -63,6 +63,7 @@ input[type='text'] {
 /* Page Layout */
 .page-container {
   position: relative;
+  padding-top: 72px;
 }
 
 .main-container {
@@ -105,7 +106,8 @@ input[type='text'] {
 }
 
 .player-input {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #007bff;
@@ -540,7 +542,7 @@ input[type='text'] {
 
   .main-container {
     padding: 8px;
-    padding-top: 80px;
+    padding-top: 96px;
   }
 
   .language-switcher {
@@ -567,15 +569,15 @@ input[type='text'] {
 /* Landscape orientation adjustments for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
   .main-container {
-    padding-top: 60px;
+    padding-top: 96px;
   }
 
   .language-switcher {
-    top: 4px;
-    right: 4px;
+    top: 8px;
+    right: 8px;
   }
 
   .player-section {
-    margin-top: 20px;
+    margin-top: 24px;
   }
 }
