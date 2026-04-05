@@ -145,7 +145,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
               {getRoundTotal(i, 'upper')}
             </div>
           ))}
-          <div className="score-grid-cell">{upperGrandTotal}</div>
+          <div className="score-grid-cell score-grid-total">{upperGrandTotal}</div>
         </div>
 
         <div className="score-grid-row score-grid-bonus">
@@ -186,7 +186,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
               {getRoundTotal(i, 'lower')}
             </div>
           ))}
-          <div className="score-grid-cell">{lowerGrandTotal}</div>
+          <div className="score-grid-cell score-grid-total">{lowerGrandTotal}</div>
         </div>
 
         <div className="score-grid-row score-grid-bonus">
