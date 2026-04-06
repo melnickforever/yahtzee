@@ -1,91 +1,88 @@
 # Yahtzee Scorer
 
-A modern, responsive Yahtzee scoring table generator built with Next.js, TypeScript, and React. Supports both Ukrainian and English languages with mobile-optimized interface.
+A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and React. Supports Ukrainian and English with a warm, classic design.
+
+## Screenshots
+
+| English | Ukrainian |
+|---------|-----------|
+| ![English](docs/screenshot-en.png) | ![Ukrainian](docs/screenshot-uk.png) |
 
 ## Features
 
-- **Bilingual Support**: Ukrainian and English language options
-- **Mobile Responsive**: Optimized for mobile devices with horizontal scrolling tables
-- **Fixed-Point Categories**: Dropdown selections for Full House (25), Small Straight (30), Large Straight (40), and Yahtzee (50)
-- **Player Management**: Save and edit player names
-- **Rules Reference**: Built-in Yahtzee rules and scoring guide
-- **Automatic Calculations**: Real-time score calculations with bonuses
-- **TypeScript**: Fully typed for better development experience
+- **Bilingual Support**: Ukrainian (default) and English
+- **Board Game Design**: Warm parchment, wood, and felt-green color palette
+- **Single Scorecard**: One score per category — fill each category once per game
+- **Fixed-Point Dropdowns**: Inline listbox for Full House (25), Small Straight (30), Large Straight (40), and Yahtzee (50) with a 0 option
+- **Yahtzee Bonus**: Editable dropdown (0–1000 in steps of 100)
+- **Automatic Calculations**: Upper section bonus (+35 if total ≥ 63) and grand total
+- **Rules Reference**: Collapsible section with full gameplay summary, scoring table, Joker Rule, and special rules
+- **Player Name**: Save and edit player name
+- **Save Game**: Download the current scorecard as a self-contained HTML file (with all styles inlined) — works offline
+- **Mobile Responsive**: Optimized for phones in portrait and landscape
 
-## Technologies Used
+## Yahtzee Rules
 
-- **Next.js 14** - React framework
-- **TypeScript** - Type safety
-- **React 18** - UI library
-- **CSS Grid** - Responsive layouts
-- **Mobile-first design** - Responsive breakpoints
+### Gameplay
+- Each player rolls five dice, up to three times per turn
+- Set aside dice to keep and re-roll the others
+- Fill one scorecard category per turn — once filled, it cannot be reused
+
+### Upper Section
+| Category | Points |
+|----------|--------|
+| Ones through Sixes | Sum of matching dice |
+| **Bonus** | +35 if upper total ≥ 63 |
+
+### Lower Section
+| Category | Points |
+|----------|--------|
+| Three of a Kind | Sum of all dice |
+| Four of a Kind | Sum of all dice |
+| Full House | 25 |
+| Small Straight | 30 |
+| Large Straight | 40 |
+| Yahtzee | 50 |
+| Chance | Sum of all dice |
+| **Yahtzee Bonus** | +100 per additional Yahtzee |
+
+### Special Rules
+- **Joker Rule**: If Yahtzee is already filled and the matching upper category is also filled, the roll can be used as a joker in any lower section category.
+
+## Tech Stack
+
+- **Next.js 14** — App Router, single-page client app
+- **React 18** — UI with `useState` hooks only
+- **TypeScript 5** — Strict mode
+- **CSS Grid** — Global stylesheet, no external CSS libraries
+- **pnpm** — Package manager
+- **Vercel** — Deployment via GitHub Actions
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 20 or later
-- pnpm package manager
+- Node.js 20+
+- pnpm
 
 ### Installation
 
-1. Clone the repository:
 ```bash
 git clone <repository-url>
 cd yahtzee
-```
-
-2. Install dependencies:
-```bash
 pnpm install
-```
-
-3. Run the development server:
-```bash
 pnpm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-### Build for Production
+### Production Build
 
 ```bash
-pnpm build       # Creates an optimized production build
-pnpm start       # Starts the production server locally
+pnpm build
+pnpm start
 ```
 
-**When to use:**
-- `pnpm run dev` - During development with hot reload and faster feedback
-- `pnpm build && pnpm start` - To test the production build locally before deploying
-- `pnpm build` alone - When deploying to a hosting service (Vercel, etc.) that runs `pnpm start` automatically 
+## License
 
-## Usage
-
-1. **Language Selection**: Choose between Ukrainian (Укр) or English (Eng) using the language switcher
-2. **Player Name**: Enter and save your player name
-3. **Scoring**: Click on score cells to enter points for each round and category
-4. **Fixed Categories**: For Full House, Small Straight, Large Straight, and Yahtzee, select from dropdown options
-5. **Rules**: Use the Rules Reference section to check scoring combinations
-
-## Yahtzee Rules
-
-### Upper Section (Sum of dice values)
-- Ones, Twos, Threes, Fours, Fives, Sixes
-- Bonus: 35 points if upper section total ≥ 63
-
-### Lower Section (Fixed point values)
-- Three of a Kind: Sum of all dice
-- Four of a Kind: Sum of all dice
-- Full House: 25 points
-- Small Straight: 30 points
-- Large Straight: 40 points
-- Yahtzee: 50 points
-- Chance: Sum of all dice
-- Yahtzee Bonus: 100 points for each additional Yahtzee
-
-## Mobile Features
-
-- Horizontal scrolling tables for full score visibility
-- Touch-friendly interface
-- Optimized layouts for portrait and landscape orientations
-- Fixed language switcher positioning
+GPL v3
