@@ -53,10 +53,14 @@ export function ScoreCell({ value, onChange, disabled, fixedValue }: ScoreCellPr
       return (
         <select
           value={value ?? ''}
-          onChange={handleSelectChange}
+          onChange={(e) => {
+            handleSelectChange(e);
+            setIsEditing(false);
+          }}
           onBlur={() => setIsEditing(false)}
           autoFocus
-          className="score-cell-select"
+          size={3}
+          className="score-cell-select-open"
         >
           <option value="">—</option>
           <option value="0">0</option>

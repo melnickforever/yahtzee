@@ -507,6 +507,29 @@ input[type='text'] {
   box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.12);
 }
 
+.score-cell-select-open {
+  width: 100%;
+  border: 2px solid #8b4513;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+  background-color: #fffef8;
+  cursor: pointer;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.12);
+  overflow: hidden;
+}
+
+.score-cell-select-open option {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.score-cell-select-open option:hover {
+  background-color: #f0e8d4;
+}
+
 @media (max-width: 768px) {
   table {
     font-size: 12px;
