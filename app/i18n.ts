@@ -38,7 +38,7 @@ export const translations = {
       },
     },
     bonuses: {
-      upperBonus: 'Бонус верху',
+      upperBonus: 'Бонус таблиці',
       yahtzeeBonus: 'Бонус Yahtzee',
     },
     rules_table: {
