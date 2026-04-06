@@ -191,6 +191,34 @@ input[type='text'] {
   cursor: pointer;
 }
 
+/* Rules Summary */
+.rules-summary {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.rules-summary h3 {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: 15px;
+  color: #333;
+}
+
+.rules-summary p {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.rules-summary ul {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.rules-summary li {
+  margin-bottom: 4px;
+}
+
 /* Rules Grid */
 .rules-grid {
   display: grid;
@@ -246,9 +274,6 @@ input[type='text'] {
 }
 
 .rules-grid-bonus .rules-grid-cell {
-  background-color: #f8d7da !important;
-  color: #721c24 !important;
-  font-weight: bold;
 }
 
 .rules-table {
