@@ -150,7 +150,8 @@ export function ScoreTable({ language }: ScoreTableProps) {
                   }}
                   onBlur={() => setYahtzeeBonusEditing(false)}
                   autoFocus
-                  className="score-cell-select"
+                  size={11}
+                  className="score-cell-select-open"
                 >
                   {Array.from({ length: 11 }, (_, i) => i * 100).map((val) => (
                     <option key={val} value={val}>{val}</option>
