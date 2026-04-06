@@ -13,6 +13,7 @@ export const translations = {
     total: 'Всього',
     bonus: 'Бонус',
     grandTotal: 'Загальна сума',
+    saveGame: 'Зберегти гру',
     oneCellPerRound: 'Лише одна клітинка за раунд дозволена',
     categories: {
       upper: {
@@ -110,6 +111,7 @@ export const translations = {
     total: 'Total',
     bonus: 'Bonus',
     grandTotal: 'Grand Total',
+    saveGame: 'Save Game',
     oneCellPerRound: 'Only one cell per round allowed',
     categories: {
       upper: {

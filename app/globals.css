@@ -314,9 +314,6 @@ input[type='text'] {
   border-bottom: none;
 }
 
-.rules-grid-bonus .rules-grid-cell {
-}
-
 /* Score Table */
 .score-table-container {
   padding: 0;
@@ -450,6 +447,27 @@ input[type='text'] {
   color: #fdf6e3;
   box-shadow: 0 3px 10px rgba(107, 52, 16, 0.25);
   letter-spacing: 0.02em;
+}
+
+/* Save Game Button */
+.save-game-button {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  background-color: #2d6b3f;
+  color: #fdf6e3;
+  border: 2px solid #1e5430;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  box-shadow: 0 2px 6px rgba(30, 84, 48, 0.2);
+}
+
+.save-game-button:hover {
+  background-color: #367a4a;
 }
 
 /* Score Cell */

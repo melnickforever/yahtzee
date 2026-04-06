@@ -70,6 +70,40 @@ export function ScoreTable({ language }: ScoreTableProps) {
     return fixedValues[categoryKey] ?? null;
   };
 
+  const handleSaveGame = () => {
+    const clone = document.documentElement.cloneNode(true) as HTMLElement;
+
+    // Collect all CSS and inline it
+    const styles: string[] = [];
+    for (const sheet of Array.from(document.styleSheets)) {
+      try {
+        for (const rule of Array.from(sheet.cssRules)) {
+          styles.push(rule.cssText);
+        }
+      } catch {
+        // skip cross-origin sheets
+      }
+    }
+    const styleEl = document.createElement('style');
+    styleEl.textContent = styles.join('\n');
+
+    // Remove all existing link[rel=stylesheet] and script tags
+    clone.querySelectorAll('link[rel="stylesheet"], script').forEach((el) => el.remove());
+    clone.querySelector('head')?.appendChild(styleEl);
+
+    const html = `<!DOCTYPE html>\n${clone.outerHTML}`;
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const date = now.toISOString().slice(0, 10);
+    const time = now.toTimeString().slice(0, 8).replace(/:/g, '-');
+    a.download = `yahtzee-${date}_${time}.html`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const renderRow = (categoryKey: CategoryKey, categoryName: string) => {
     const fixedValue = getFixedValue(categoryKey);
     return (
@@ -173,6 +207,10 @@ export function ScoreTable({ language }: ScoreTableProps) {
       <div className="grand-total">
         {t.grandTotal}: {grandTotal}
       </div>
+
+      <button className="save-game-button" onClick={handleSaveGame}>
+        {t.saveGame}
+      </button>
     </div>
   );
 }
