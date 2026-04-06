@@ -57,7 +57,7 @@ pnpm start       # Starts the production server locally
 **When to use:**
 - `pnpm run dev` - During development with hot reload and faster feedback
 - `pnpm build && pnpm start` - To test the production build locally before deploying
-- `pnpm build` alone - When deploying to a hosting service (Vercel, etc.) that runs `pnpm start` automatically
+- `pnpm build` alone - When deploying to a hosting service (Vercel, etc.) that runs `pnpm start` automatically 
 
 ## Usage
 
