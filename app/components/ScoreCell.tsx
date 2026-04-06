@@ -59,6 +59,7 @@ export function ScoreCell({ value, onChange, disabled, fixedValue }: ScoreCellPr
           className="score-cell-select"
         >
           <option value="">—</option>
+          <option value="0">0</option>
           <option value={fixedValue}>{fixedValue}</option>
         </select>
       );
