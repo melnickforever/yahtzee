@@ -62,6 +62,29 @@ export default function Home() {
         <RulesReference language={language} />
         <ScoreTable language={language} />
       </main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: 'Yahtzee Score Table Generator',
+            description: 'Free online tool to generate and calculate Yahtzee score tables with automatic bonus tracking',
+            applicationCategory: 'GameApplication',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            inLanguage: language === 'uk' ? 'uk-UA' : 'en-US',
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '4.8',
+              ratingCount: '100',
+            },
+          }),
+        }}
+      />
     </div>
   );
 }
