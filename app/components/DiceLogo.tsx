@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useCallback } from 'react';
+
 export function DiceLogo() {
   const diceSize = 36;
   const gap = 6;
@@ -12,16 +14,35 @@ export function DiceLogo() {
   const diceBorder = '#8b4513';
   const pip = '#5a2d0c';
 
-  // Pip positions for each face (centered in a diceSize x diceSize die)
   const pipPositions: Record<number, [number, number][]> = {
     1: [[0.5, 0.5]],
     2: [[0.25, 0.25], [0.75, 0.75]],
     3: [[0.25, 0.25], [0.5, 0.5], [0.75, 0.75]],
     4: [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]],
     5: [[0.25, 0.25], [0.75, 0.25], [0.5, 0.5], [0.25, 0.75], [0.75, 0.75]],
+    6: [[0.25, 0.25], [0.75, 0.25], [0.25, 0.5], [0.75, 0.5], [0.25, 0.75], [0.75, 0.75]],
   };
 
-  const faces = [1, 2, 3, 4, 5];
+  const defaultFaces = [1, 2, 3, 4, 5];
+  const [faces, setFaces] = useState(defaultFaces);
+  const [rolling, setRolling] = useState(false);
+
+  const rollDice = useCallback(() => {
+    if (rolling) return;
+    setRolling(true);
+
+    let count = 0;
+    const totalFrames = 8;
+    const interval = setInterval(() => {
+      setFaces(Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1));
+      count++;
+      if (count >= totalFrames) {
+        clearInterval(interval);
+        setRolling(false);
+      }
+    }, 80);
+  }, [rolling]);
+
   const pipRadius = diceSize * 0.08;
   const cornerRadius = 5;
 
@@ -31,17 +52,19 @@ export function DiceLogo() {
       height={svgHeight}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
       role="img"
-      aria-label="Yahtzee dice logo"
+      aria-label="Yahtzee dice logo — click to roll"
+      onClick={rollDice}
+      style={{ cursor: 'pointer' }}
     >
       {faces.map((face, i) => {
         const x = padding + i * (diceSize + gap);
         const y = padding;
-        const rotation = (i - 2) * 4; // slight tilt: -8, -4, 0, 4, 8
+        const baseRotation = (i - 2) * 4;
         const cx = x + diceSize / 2;
         const cy = y + diceSize / 2;
 
         return (
-          <g key={i} transform={`rotate(${rotation}, ${cx}, ${cy})`}>
+          <g key={i} transform={`rotate(${baseRotation}, ${cx}, ${cy})`}>
             <rect
               x={x}
               y={y}
@@ -52,7 +75,17 @@ export function DiceLogo() {
               fill={diceBody}
               stroke={diceBorder}
               strokeWidth={1.5}
-            />
+            >
+              {rolling && (
+                <animateTransform
+                  attributeName="transform"
+                  type="translate"
+                  values={`0 0; ${(i % 2 ? 2 : -2)} ${-3}; 0 0`}
+                  dur="0.16s"
+                  repeatCount="indefinite"
+                />
+              )}
+            </rect>
             {pipPositions[face].map(([px, py], j) => (
               <circle
                 key={j}
