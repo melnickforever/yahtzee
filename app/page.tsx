@@ -63,8 +63,8 @@ export default function Home() {
             </div>
           )}
         </div>
-        <RulesReference language={language} />
         {gameActive && <DiceGame language={language} onExit={() => setGameActive(false)} />}
+        <RulesReference language={language} />
         <ScoreTable language={language} />
       </main>
       <script

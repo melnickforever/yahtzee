@@ -2,11 +2,7 @@
 
 A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and React. Supports Ukrainian and English with a warm, classic design.
 
-## Screenshots
-
-| Ukrainian | English |
-|-----------|-----------|
-| ![Ukrainian](docs/screenshot-uk.png) | ![English](docs/screenshot-en.png) |
+**Live Demo**: [yahtzee-red.vercel.app](https://yahtzee-red.vercel.app/)
 
 ## Features
 
@@ -19,6 +15,7 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 - **Rules Reference**: Collapsible section with full gameplay summary, scoring table, Joker Rule, and special rules
 - **Player Name**: Save and edit player name
 - **Save Game**: Download the current scorecard as a self-contained HTML file (with all styles inlined) — works offline
+- **Dice Game Mode**: Built-in dice roller — tap the logo to enter game mode, roll up to 3 times per turn, keep/release dice between rolls
 - **Mobile Responsive**: Optimized for phones in portrait and landscape
 
 ## Yahtzee Rules
@@ -48,6 +45,18 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 
 ### Special Rules
 - **Joker Rule**: If Yahtzee is already filled and the matching upper category is also filled, the roll can be used as a joker in any lower section category.
+
+## Dice Game Mode
+
+Tap the dice logo at the top of the page to enter game mode. A dice roller panel appears between the Rules and Score Table sections.
+
+1. **Initial roll** — all 5 dice roll automatically on entry
+2. **Keep dice** — tap a die in the roll area to move it to the "Kept" area
+3. **Return dice** — tap a kept die to move it back to the roll area
+4. **Re-roll** — press the Roll button to re-roll only the free (un-kept) dice
+5. **3 rolls per turn** — the roll counter tracks usage (Roll 1/3, 2/3, 3/3)
+6. **New Turn** — resets all dice and the roll counter
+7. **Exit** — closes game mode and returns to the logo view
 
 ## Tech Stack
 
