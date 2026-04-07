@@ -41,9 +41,6 @@ export default function Home() {
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label htmlFor="playerNameInput" className="player-label">
-                {t.playerName}
-              </label>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                 <input
                   id="playerNameInput"
