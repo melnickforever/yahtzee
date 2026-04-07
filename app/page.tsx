@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Language, translations } from '@/app/i18n';
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher';
+import { DiceLogo } from '@/app/components/DiceLogo';
 import { RulesReference } from '@/app/components/RulesReference';
 import { ScoreTable } from '@/app/components/ScoreTable';
 
@@ -22,6 +23,7 @@ export default function Home() {
     <div className="page-container">
       <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
       <main className="main-container">
+        <div><DiceLogo /></div>
         <h1>{t.title}</h1>
         <div className="player-section">
           {isPlayerNameSaved ? (
