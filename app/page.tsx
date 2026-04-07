@@ -15,12 +15,32 @@ export default function Home() {
   const [gameActive, setGameActive] = useState(false);
   const t = translations[language];
 
+  const smoothScroll = useCallback((targetY: number, duration = 1200) => {
+    const startY = window.scrollY;
+    const diff = targetY - startY;
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const ease = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, startY + diff * ease);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, []);
+
   const handleEnterGame = useCallback(() => {
     setGameActive(true);
     setTimeout(() => {
-      document.getElementById('dice-game')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const el = document.getElementById('dice-game');
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 20;
+        smoothScroll(top, 1200);
+      }
     }, 100);
-  }, []);
+  }, [smoothScroll]);
 
   return (
     <div className="page-container">
@@ -61,7 +81,10 @@ export default function Home() {
             </div>
           )}
         </div>
-        {gameActive && <DiceGame language={language} onExit={() => setGameActive(false)} />}
+        {gameActive && <DiceGame language={language} onExit={() => {
+          setGameActive(false);
+          smoothScroll(0, 1200);
+        }} />}
         <RulesReference language={language} />
         <ScoreTable language={language} />
       </main>
