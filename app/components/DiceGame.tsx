@@ -118,7 +118,7 @@ export function DiceGame({ language, onExit }: DiceGameProps) {
   const svgH = DICE_SIZE + PADDING * 2;
 
   return (
-    <div className="game-mode">
+    <div className="game-mode" id="dice-game">
       {/* Controls */}
       <div className="game-controls">
         <div className="game-roll-counter">
