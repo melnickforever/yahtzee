@@ -6,7 +6,7 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 
 | Ukrainian | English |
 |-----------|-----------|
-| ![Ukrainian](docs/screenshot-en.png) | ![English](docs/screenshot-uk.png) |
+| ![Ukrainian](docs/screenshot-uk.png) | ![English](docs/screenshot-en.png) |
 
 ## Features
 
