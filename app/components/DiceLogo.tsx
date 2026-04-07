@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Language } from '@/app/i18n';
 
 interface DiceLogoProps {
@@ -11,7 +11,7 @@ interface DiceLogoProps {
 
 const hintText: Record<Language, string> = {
   uk: 'натисни, щоб кинути кістки',
-  en: 'tap to roll dice',
+  en: 'tap to roll dices',
 };
 
 const DICE_SIZE = 36;
@@ -40,6 +40,10 @@ export function DiceLogo({ language, onEnterGame, gameActive }: DiceLogoProps) {
   const [faces, setFaces] = useState([1, 2, 3, 4, 5]);
   const [rolling, setRolling] = useState(false);
   const [hasRolled, setHasRolled] = useState(false);
+
+  useEffect(() => {
+    if (!gameActive) setHasRolled(false);
+  }, [gameActive]);
 
   const handleClick = useCallback(() => {
     if (rolling || gameActive) return;
