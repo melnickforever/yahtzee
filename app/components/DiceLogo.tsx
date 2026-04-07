@@ -1,18 +1,13 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { Language } from '@/app/i18n';
+import { Language, translations } from '@/app/i18n';
 
 interface DiceLogoProps {
   language: Language;
   onEnterGame: () => void;
   gameActive: boolean;
 }
-
-const hintText: Record<Language, string> = {
-  uk: 'натисни, щоб кинути кістки',
-  en: 'tap to roll dices',
-};
 
 const DICE_SIZE = 36;
 const GAP = 6;
@@ -98,7 +93,7 @@ export function DiceLogo({ language, onEnterGame, gameActive }: DiceLogoProps) {
       </svg>
       {!hasRolled && !gameActive && (
         <div className="dice-logo-hint">
-          <span className="dice-logo-hint-arrow">&#8593;</span> {hintText[language]}
+          <span className="dice-logo-hint-arrow">&#8593;</span> {translations[language].tapToRoll}
         </div>
       )}
     </div>
