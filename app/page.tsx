@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Language, translations } from '@/app/i18n';
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher';
 import { DiceLogo } from '@/app/components/DiceLogo';
@@ -10,22 +10,23 @@ import { ScoreTable } from '@/app/components/ScoreTable';
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('uk');
-  const [playerName, setPlayerName] = useState<string>('');
-  const [isPlayerNameSaved, setIsPlayerNameSaved] = useState<boolean>(false);
+  const [playerName, setPlayerName] = useState('');
+  const [isPlayerNameSaved, setIsPlayerNameSaved] = useState(false);
   const [gameActive, setGameActive] = useState(false);
   const t = translations[language];
 
-  const handleSavePlayerName = () => {
-    if (playerName.trim()) {
-      setIsPlayerNameSaved(true);
-    }
-  };
+  const handleEnterGame = useCallback(() => {
+    setGameActive(true);
+    setTimeout(() => {
+      document.getElementById('dice-game')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }, []);
 
   return (
     <div className="page-container">
       <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
       <main className="main-container">
-        <div style={{ textAlign: 'center' }}><DiceLogo language={language} onEnterGame={() => setGameActive(true)} gameActive={gameActive} /></div>
+        <div style={{ textAlign: 'center' }}><DiceLogo language={language} onEnterGame={handleEnterGame} gameActive={gameActive} /></div>
         <h1>{t.title}</h1>
         <div className="player-section">
           {isPlayerNameSaved ? (
@@ -53,7 +54,7 @@ export default function Home() {
                   className="player-input"
                 />
                 <button
-                  onClick={handleSavePlayerName}
+                  onClick={() => { if (playerName.trim()) setIsPlayerNameSaved(true); }}
                   disabled={!playerName.trim()}
                   className="player-save-button"
                 >
