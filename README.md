@@ -1,4 +1,4 @@
-# Yahtzee Scorer
+# Yahtzee Score Table Generator
 
 A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and React. Supports Ukrainian and English with a warm, classic design.
 
