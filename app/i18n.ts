@@ -2,7 +2,8 @@ export type Language = 'uk' | 'en';
 
 export const translations = {
   uk: {
-    title: 'Генератор таблиці Yahtzee',
+    title: 'Yahtzee',
+    tableTitle: 'Таблиця результатів',
     rules: 'Правила',
     hideRules: 'Приховати',
     showRules: 'Показати',
@@ -101,7 +102,8 @@ export const translations = {
     },
   },
   en: {
-    title: 'Yahtzee Score Table Generator',
+    title: 'Yahtzee',
+    tableTitle: 'Score Table',
     rules: 'Rules',
     hideRules: 'Hide',
     showRules: 'Show',

@@ -122,7 +122,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
 
   return (
     <div className="score-table-container">
-      <h2>{t.title}</h2>
+      <h2>{t.tableTitle}</h2>
 
       {/* Upper Section */}
       <div className="score-grid-wrapper">
