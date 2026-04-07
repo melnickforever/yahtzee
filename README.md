@@ -4,9 +4,9 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 
 ## Screenshots
 
-| English | Ukrainian |
-|---------|-----------|
-| ![English](docs/screenshot-en.png) | ![Ukrainian](docs/screenshot-uk.png) |
+| Ukrainian | English |
+|-----------|-----------|
+| ![Ukrainian](docs/screenshot-en.png) | ![English](docs/screenshot-uk.png) |
 
 ## Features
 
