@@ -560,13 +560,22 @@ input[type='text'] {
 
   .main-container {
     padding: 12px;
-    padding-top: 96px;
+    padding-top: 48px;
   }
 
   .language-switcher {
     position: fixed;
     top: 8px;
     right: 8px;
+  }
+
+  .rules-grid {
+    min-width: 500px;
+  }
+
+  .rules-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .score-grid {
@@ -582,7 +591,7 @@ input[type='text'] {
 /* Landscape orientation adjustments for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
   .main-container {
-    padding-top: 96px;
+    padding-top: 48px;
   }
 
   .language-switcher {

@@ -60,6 +60,7 @@ export function RulesReference({ language }: RulesReferenceProps) {
             <ul>
               <li>{s.yahtzeeBonus}</li>
               <li>{s.jokerRule}</li>
+              <li>{s.zeroRule}</li>
             </ul>
 
             <h3>{s.keyPointTitle}</h3>
