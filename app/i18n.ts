@@ -16,6 +16,16 @@ export const translations = {
     grandTotal: 'Загальна сума',
     saveGame: 'Зберегти гру',
     oneCellPerRound: 'Лише одна клітинка за раунд дозволена',
+    game: {
+      roll: 'Кинути',
+      rollCount: 'Кидок',
+      of: 'з',
+      kept: 'Відкладені',
+      empty: 'Натисніть на кістку зверху, щоб відкласти',
+      newTurn: 'Новий хід',
+      exit: 'Вихід',
+      noRolls: 'Кидків більше немає',
+    },
     categories: {
       upper: {
         title: 'Верхня секція',
@@ -116,6 +126,16 @@ export const translations = {
     grandTotal: 'Grand Total',
     saveGame: 'Save Game',
     oneCellPerRound: 'Only one cell per round allowed',
+    game: {
+      roll: 'Roll',
+      rollCount: 'Roll',
+      of: 'of',
+      kept: 'Kept',
+      empty: 'Tap a die above to keep it',
+      newTurn: 'New Turn',
+      exit: 'Exit',
+      noRolls: 'No rolls left',
+    },
     categories: {
       upper: {
         title: 'Upper Section',

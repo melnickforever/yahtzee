@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Language, translations } from '@/app/i18n';
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher';
 import { DiceLogo } from '@/app/components/DiceLogo';
+import { DiceGame } from '@/app/components/DiceGame';
 import { RulesReference } from '@/app/components/RulesReference';
 import { ScoreTable } from '@/app/components/ScoreTable';
 
@@ -11,6 +12,7 @@ export default function Home() {
   const [language, setLanguage] = useState<Language>('uk');
   const [playerName, setPlayerName] = useState<string>('');
   const [isPlayerNameSaved, setIsPlayerNameSaved] = useState<boolean>(false);
+  const [gameActive, setGameActive] = useState(false);
   const t = translations[language];
 
   const handleSavePlayerName = () => {
@@ -23,7 +25,7 @@ export default function Home() {
     <div className="page-container">
       <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
       <main className="main-container">
-        <div><DiceLogo /></div>
+        <div style={{ textAlign: 'center' }}><DiceLogo language={language} onEnterGame={() => setGameActive(true)} gameActive={gameActive} /></div>
         <h1>{t.title}</h1>
         <div className="player-section">
           {isPlayerNameSaved ? (
@@ -62,6 +64,7 @@ export default function Home() {
           )}
         </div>
         <RulesReference language={language} />
+        {gameActive && <DiceGame language={language} onExit={() => setGameActive(false)} />}
         <ScoreTable language={language} />
       </main>
       <script
