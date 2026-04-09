@@ -145,7 +145,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
       <div className={`clear-confirm${showClearConfirm ? ' clear-confirm-visible' : ''}`}>
         <span className="clear-confirm-label">{t.clearScore}</span>
         <button className="game-btn game-btn-roll" onClick={handleClearScores}>{t.yes}</button>
-        <button className="game-btn game-btn-exit" onClick={() => setShowClearConfirm(false)}>{t.no}</button>
+        <button className="rules-button" onClick={() => setShowClearConfirm(false)}>{t.no}</button>
       </div>
 
       {/* Upper Section */}
