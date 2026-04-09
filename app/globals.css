@@ -374,6 +374,10 @@ input[type='text'] {
   color: #5c4a2e;
 }
 
+.clear-confirm .game-btn {
+  flex: none;
+}
+
 .score-grid-wrapper {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
