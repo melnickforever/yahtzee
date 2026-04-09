@@ -15,6 +15,9 @@ export const translations = {
     bonus: 'Бонус',
     grandTotal: 'Загальна сума',
     saveGame: 'Зберегти гру',
+    clearScore: 'Очистити результати?',
+    yes: 'Так',
+    no: 'Ні',
     tapToRoll: 'натисни, щоб кинути кістки',
     oneCellPerRound: 'Лише одна клітинка за раунд дозволена',
     game: {
@@ -126,6 +129,9 @@ export const translations = {
     bonus: 'Bonus',
     grandTotal: 'Grand Total',
     saveGame: 'Save Game',
+    clearScore: 'Clear score?',
+    yes: 'Yes',
+    no: 'No',
     tapToRoll: 'tap to roll dices',
     oneCellPerRound: 'Only one cell per round allowed',
     game: {
