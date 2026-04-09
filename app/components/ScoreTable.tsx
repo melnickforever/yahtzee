@@ -30,8 +30,9 @@ export function ScoreTable({ language }: ScoreTableProps) {
 
   const [yahtzeeBonus, setYahtzeeBonus] = useState<number>(0);
   const [yahtzeeBonusEditing, setYahtzeeBonusEditing] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
-  const [scores, setScores] = useState<ScoresData>({
+  const defaultScores: ScoresData = {
     ones: null,
     twos: null,
     threes: null,
@@ -45,10 +46,19 @@ export function ScoreTable({ language }: ScoreTableProps) {
     largeStraight: null,
     yahtzee: null,
     chance: null,
-  });
+  };
+
+  const [scores, setScores] = useState<ScoresData>(defaultScores);
 
   const handleScoreChange = (category: CategoryKey, value: number | null) => {
     setScores((prev) => ({ ...prev, [category]: value }));
+  };
+
+  const handleClearScores = () => {
+    setScores(defaultScores);
+    setYahtzeeBonus(0);
+    setYahtzeeBonusEditing(false);
+    setShowClearConfirm(false);
   };
 
   const upperCategories: CategoryKey[] = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
@@ -122,7 +132,21 @@ export function ScoreTable({ language }: ScoreTableProps) {
 
   return (
     <div className="score-table-container">
-      <h2>{t.tableTitle}</h2>
+      <div className="score-table-header">
+        <h2>{t.tableTitle}</h2>
+        <button
+          className="clear-score-broom"
+          onClick={() => setShowClearConfirm((v) => !v)}
+          aria-label="clear score"
+        >
+          🧹
+        </button>
+      </div>
+      <div className={`clear-confirm${showClearConfirm ? ' clear-confirm-visible' : ''}`}>
+        <span className="clear-confirm-label">{t.clearScore}</span>
+        <button className="game-btn game-btn-roll" onClick={handleClearScores}>{t.yes}</button>
+        <button className="game-btn game-btn-exit" onClick={() => setShowClearConfirm(false)}>{t.no}</button>
+      </div>
 
       {/* Upper Section */}
       <div className="score-grid-wrapper">
