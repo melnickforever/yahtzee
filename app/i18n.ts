@@ -129,7 +129,7 @@ export const translations = {
     bonus: 'Bonus',
     grandTotal: 'Grand Total',
     saveGame: 'Save Game',
-    clearScore: 'Clear score?',
+    clearScore: 'Clear scores?',
     yes: 'Yes',
     no: 'No',
     tapToRoll: 'tap to roll dices',
