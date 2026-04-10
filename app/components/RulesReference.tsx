@@ -65,6 +65,9 @@ export function RulesReference({ language }: RulesReferenceProps) {
 
             <h3>{s.keyPointTitle}</h3>
             <p>{s.keyPoint}</p>
+
+            <h3>{s.gameEndTitle}</h3>
+            <p>{s.gameEnd}</p>
           </div>
 
           <div className="rules-grid">

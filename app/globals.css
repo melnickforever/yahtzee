@@ -374,8 +374,14 @@ input[type='text'] {
   color: #5c4a2e;
 }
 
-.clear-confirm .game-btn {
+.clear-confirm .game-btn,
+.clear-confirm .rules-button {
   flex: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 6px;
+  line-height: 1.2;
+  min-width: 64px;
 }
 
 .score-grid-wrapper {
@@ -550,6 +556,12 @@ input[type='text'] {
 .score-cell-display:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.score-cell-locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .score-cell-input {
