@@ -1,12 +1,14 @@
 ---
-description: "Run full browser test suite for Yahtzee app using Playwright MCP"
-agent: "ask"
+description: "Run the Yahtzee browser test suite against localhost:3000 using Microsoft Playwright MCP and report PASS/FAIL results"
+agent: "agent"
+tools: ["microsoft/playwright-mcp/*"]
 ---
 
 # Yahtzee App — Full Browser Test Suite
 
-Run all test cases below against `http://localhost:3000` using Playwright MCP tools.
-Report each test as PASS or FAIL with details. Stop and report immediately on any failure.
+Use the Microsoft Playwright MCP browser tools directly.
+Run all test cases below against `http://localhost:3000` and report each test as PASS or FAIL with details.
+Stop and report immediately on any failure.
 
 ## Prerequisites
 
