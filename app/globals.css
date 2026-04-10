@@ -679,6 +679,7 @@ input[type='text'] {
 
 .game-btn {
   padding: 8px 16px;
+  min-height: 44px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 14px;
