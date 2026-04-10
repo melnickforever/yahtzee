@@ -126,7 +126,7 @@ export function DiceGame({ language, onExit }: DiceGameProps) {
         </div>
         <div className="game-buttons">
           <button className="game-btn game-btn-roll" onClick={handleRoll} disabled={!canRoll}>
-            {canRoll ? t.game.roll : t.game.noRolls}
+            {canRoll ? t.game.roll : freeDice.length === 0 ? t.game.allKept : t.game.noRolls}
           </button>
           <button className="game-btn game-btn-new" onClick={handleNewTurn}>
             {t.game.newTurn}
@@ -148,7 +148,7 @@ export function DiceGame({ language, onExit }: DiceGameProps) {
             ))}
           </svg>
         ) : (
-          <div className="game-area-empty-text">{t.game.noRolls}</div>
+          <div className="game-area-empty-text">{t.game.allKept}</div>
         )}
       </div>
 
