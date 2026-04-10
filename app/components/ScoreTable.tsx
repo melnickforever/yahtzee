@@ -1,7 +1,7 @@
 'use client';
 
 import { Language, translations } from '@/app/i18n';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScoreCell } from './ScoreCell';
 
 interface ScoreTableProps {
@@ -60,6 +60,15 @@ export function ScoreTable({ language }: ScoreTableProps) {
     setYahtzeeBonusEditing(false);
     setShowClearConfirm(false);
   };
+
+  const isYahtzeeBonusLocked = scores.yahtzee === 0;
+
+  useEffect(() => {
+    if (isYahtzeeBonusLocked) {
+      setYahtzeeBonus(0);
+      setYahtzeeBonusEditing(false);
+    }
+  }, [isYahtzeeBonusLocked]);
 
   const upperCategories: CategoryKey[] = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
   const lowerCategories: CategoryKey[] = ['threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance'];
@@ -199,7 +208,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
           <div className="score-grid-row score-grid-bonus">
             <div className="score-grid-cell">{t.bonuses.yahtzeeBonus}</div>
             <div className="score-grid-cell">
-              {yahtzeeBonusEditing ? (
+              {!isYahtzeeBonusLocked && yahtzeeBonusEditing ? (
                 <select
                   value={yahtzeeBonus}
                   onChange={(e) => {
@@ -217,8 +226,8 @@ export function ScoreTable({ language }: ScoreTableProps) {
                 </select>
               ) : (
                 <div
-                  className="score-cell-display"
-                  onClick={() => setYahtzeeBonusEditing(true)}
+                  className={`score-cell-display${isYahtzeeBonusLocked ? ' score-cell-locked' : ''}`}
+                  onClick={isYahtzeeBonusLocked ? undefined : () => setYahtzeeBonusEditing(true)}
                 >
                   {yahtzeeBonus}
                 </div>
