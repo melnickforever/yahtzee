@@ -67,12 +67,13 @@ Tap the dice logo at the top of the page to enter game mode. A dice roller panel
 
 ## Tech Stack
 
-- **Next.js 14** — App Router, single-page client app
-- **React 18** — UI with `useState` hooks only
-- **TypeScript 5** — Strict mode
-- **CSS Grid** — Global stylesheet, no external CSS libraries
+- **Next.js** — App Router, single-page client app
+- **React** — UI with `useState` hooks only; no external state libraries
+- **TypeScript** — Strict mode (`noUnusedLocals`, `noUnusedParameters`)
+- **CSS** — Single global stylesheet (`app/globals.css`), CSS Grid layout; no Tailwind, no CSS modules
+- **Zero runtime dependencies** — no libraries beyond next / react / react-dom
 - **pnpm** — Package manager
-- **Vercel** — Deployment via GitHub Actions
+- **Vercel** — Deployment via GitHub Actions on push to `main`
 
 ## Getting Started
 
