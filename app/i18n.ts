@@ -28,7 +28,8 @@ export const translations = {
       empty: 'Натисніть на кістку зверху, щоб відкласти',
       newTurn: 'Новий хід',
       exit: 'Вихід',
-      noRolls: 'Кидків більше немає',
+      noRolls: 'Кидків немає',
+      allKept: 'Всі кістки відкладено',
     },
     categories: {
       upper: {
@@ -145,6 +146,7 @@ export const translations = {
       newTurn: 'New Turn',
       exit: 'Exit',
       noRolls: 'No rolls left',
+      allKept: 'All dice kept',
     },
     categories: {
       upper: {
