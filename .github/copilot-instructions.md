@@ -64,11 +64,16 @@ app/
 
 ## Yahtzee Rules (for context)
 
-- Players roll 5 dice up to 3 times per turn, filling one scorecard category per turn.
-- **Upper section**: Sum of specified die face. Bonus +35 if total ≥ 63.
+- **Objective**: Score the most points by rolling five dice to create specific combinations across 13 categories.
+- **Turn structure**: Roll up to 3 times per turn. Set aside dice to keep between rolls. After the third roll (or earlier), record a score in exactly one category. A filled category cannot be reused.
+- **Upper section**: Sum of the specified die face (ones–sixes). Bonus +35 automatically if upper total ≥ 63.
 - **Lower section**: 3-of-a-Kind (sum all), 4-of-a-Kind (sum all), Full House (25), Small Straight (30), Large Straight (40), Yahtzee (50), Chance (sum all).
-- **Yahtzee Bonus**: +100 per additional Yahtzee after the first.
-- **Joker Rule**: If Yahtzee category and corresponding upper category are both filled, the roll can be used as a joker in any lower section category.
+- **Yahtzee Bonus**: +100 per additional Yahtzee after the first. Only applies if Yahtzee was scored 50 (not 0).
+- **Joker Rule**: If Yahtzee is already filled, first try the matching upper category. If that is also filled, use the roll as a joker in any free lower section category at full value.
+- **Zero Rule**: If no free category fits the roll, choose one and record 0.
+- **Game end**: All 13 categories filled → count grand total; highest score wins.
+
+> **README sync**: When any rule changes (scoring values, bonus conditions, Joker Rule logic, etc.), update the `### Rules` section in `README.md` to match.
 
 ## Code Conventions
 
