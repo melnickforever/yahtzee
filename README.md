@@ -12,6 +12,7 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 - **Fixed-Point Dropdowns**: Inline listbox for Full House (25), Small Straight (30), Large Straight (40), and Yahtzee (50) with a 0 option
 - **Yahtzee Bonus**: Editable dropdown (0–1000 in steps of 100)
 - **Automatic Calculations**: Upper section bonus (+35 if total ≥ 63) and grand total
+- **Clear Score**: Broom button in the score table header resets all scores and bonuses; requires confirmation before clearing
 - **Rules Reference**: Collapsible section with full gameplay summary, scoring table, Joker Rule, and special rules
 - **Player Name**: Save and edit player name
 - **Save Game**: Download the current scorecard as a self-contained HTML file (with all styles inlined) — works offline
@@ -43,8 +44,14 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 | Chance | Sum of all dice |
 | **Yahtzee Bonus** | +100 per additional Yahtzee |
 
-### Special Rules
-- **Joker Rule**: If Yahtzee is already filled and the matching upper category is also filled, the roll can be used as a joker in any lower section category.
+### Rules
+- **Objective**: Score the most points by rolling five dice to create specific combinations across 13 categories.
+- **Turn structure**: Roll up to three times per turn. Set aside dice to keep between rolls. After the third roll (or earlier), record a score in exactly one category.
+- **One category per turn**: Only one category may be filled per turn. A filled category cannot be reused for the rest of the game.
+- **Yahtzee Bonus**: If an additional Yahtzee is rolled after the first, score +100 per extra Yahtzee. The bonus only applies if the Yahtzee category was scored 50 (not 0); if you scored 0 there, no bonus is awarded but the roll must still be placed according to the Joker Rule.
+- **Joker Rule**: Triggered when Yahtzee is already filled. First try to score in the matching upper category. If that is also filled, you may use the roll as a joker in any free lower section category at full value (Full House = 25, Small Straight = 30, Large Straight = 40, or sum of all dice for others).
+- **Zero Rule**: If no free category matches your roll, you must choose one and record 0. Deciding which category to sacrifice is part of the strategy.
+- **Game end**: The game ends when all 13 categories are filled. The player with the highest grand total wins.
 
 ## Dice Game Mode
 
