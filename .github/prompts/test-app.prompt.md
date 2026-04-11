@@ -100,6 +100,7 @@ Stop and report immediately on any failure.
   - Yahtzee Bonus should reset to **0**
   - Grand total should be **0**
   - Confirm bar should fade out
+  - Verify `localStorage.getItem('yahtzee-game-state')` has all null scores and yahtzeeBonus === 0
 
 ## Test 10: Dice Game — Basic Flow
 
@@ -146,19 +147,61 @@ Stop and report immediately on any failure.
 - Switch language (UK → EN or EN → UK)
 - Verify all game UI text updates to the new language without breaking state
 
-## Test 16: Save Game
+## Test 16: Save Game (JSON)
 
+- Fill some score cells and set a player name
 - Click "Save Game" / "Зберегти гру"
-- A file download should trigger
-- Filename format: `yahtzee-YYYY-MM-DD_HH-MM-SS.html`
+- A JSON file download should trigger (or a native Save As dialog on Chrome/Edge)
+- Filename format: `yahtzee-YYYY-MM-DD_HH-MM-SS.json`
+- Verify the JSON file contains: `version`, `name`, `language`, `scores` (all 13 keys), `yahtzeeBonus`, `savedAt`
 
-## Test 17: Mobile Responsiveness (390×844)
+## Test 17: Open Game — Valid File
+
+- Click "Open Game" / "Відкрити гру"
+- A file picker dialog should appear (accepts `.json` files)
+- Select a valid saved game JSON file
+- Verify:
+  - All score cells populate with the loaded values
+  - Player name is updated
+  - Yahtzee Bonus is updated
+  - Language switches if different in the file
+  - No error message appears
+
+## Test 18: Open Game — Invalid File
+
+- Click "Open Game" / "Відкрити гру"
+- Select an invalid file (e.g. a text file renamed to `.json`, or a JSON with missing keys)
+- Verify:
+  - A red error message appears: "Невірний формат файлу" / "Invalid file format"
+  - The error message auto-dismisses after **5 seconds**
+  - All existing scores remain **unchanged**
+
+## Test 19: localStorage — Auto-Save on Change
+
+- Fill in a few score cells and a player name
+- Verify `localStorage.getItem('yahtzee-game-state')` contains the updated scores, playerName, and an `expiresAt` timestamp in the future
+- Reload the page
+- Verify all scores, player name, language, and Yahtzee Bonus persist exactly as before the reload
+
+## Test 20: localStorage — Expiry
+
+- In the browser console, manually set the localStorage data with `expiresAt` in the past:
+  ```js
+  const data = JSON.parse(localStorage.getItem('yahtzee-game-state'));
+  data.expiresAt = 0;
+  localStorage.setItem('yahtzee-game-state', JSON.stringify(data));
+  ```
+- Reload the page
+- Verify all scores reset to defaults (—), player name is empty, language is Ukrainian
+
+## Test 21: Mobile Responsiveness (390×844)
 
 - Resize viewport to 390×844
 - Verify:
   - No horizontal overflow on any section
   - Score table fits within viewport width
   - Yes/No confirm buttons are **equal size**
+  - Open Game and Save Game buttons are **equal size** side-by-side
   - Dice game controls fit in one row without wrapping issues
   - All buttons remain tappable (adequate touch target size)
 

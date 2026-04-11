@@ -1,14 +1,10 @@
 'use client';
 
 import { Language, translations } from '@/app/i18n';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ScoreCell } from './ScoreCell';
 
-interface ScoreTableProps {
-  language: Language;
-}
-
-type CategoryKey =
+export type CategoryKey =
   | 'ones'
   | 'twos'
   | 'threes'
@@ -23,40 +19,35 @@ type CategoryKey =
   | 'yahtzee'
   | 'chance';
 
-type ScoresData = Record<CategoryKey, number | null>;
+export type ScoresData = Record<CategoryKey, number | null>;
 
-export function ScoreTable({ language }: ScoreTableProps) {
+const ALL_CATEGORY_KEYS: CategoryKey[] = [
+  'ones', 'twos', 'threes', 'fours', 'fives', 'sixes',
+  'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance',
+];
+
+interface ScoreTableProps {
+  language: Language;
+  scores: ScoresData;
+  onScoreChange: (category: CategoryKey, value: number | null) => void;
+  yahtzeeBonus: number;
+  onYahtzeeBonusChange: (value: number) => void;
+  onClearScores: () => void;
+  onLoadGame: (data: { scores: ScoresData; yahtzeeBonus: number; name?: string; language?: Language }) => void;
+  playerName: string;
+}
+
+export function ScoreTable({ language, scores, onScoreChange, yahtzeeBonus, onYahtzeeBonusChange, onClearScores, onLoadGame, playerName }: ScoreTableProps) {
   const t = translations[language];
 
-  const [yahtzeeBonus, setYahtzeeBonus] = useState<number>(0);
   const [yahtzeeBonusEditing, setYahtzeeBonusEditing] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
-
-  const defaultScores: ScoresData = {
-    ones: null,
-    twos: null,
-    threes: null,
-    fours: null,
-    fives: null,
-    sixes: null,
-    threeOfAKind: null,
-    fourOfAKind: null,
-    fullHouse: null,
-    smallStraight: null,
-    largeStraight: null,
-    yahtzee: null,
-    chance: null,
-  };
-
-  const [scores, setScores] = useState<ScoresData>(defaultScores);
-
-  const handleScoreChange = (category: CategoryKey, value: number | null) => {
-    setScores((prev) => ({ ...prev, [category]: value }));
-  };
+  const [fileError, setFileError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const errorTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const handleClearScores = () => {
-    setScores(defaultScores);
-    setYahtzeeBonus(0);
+    onClearScores();
     setYahtzeeBonusEditing(false);
     setShowClearConfirm(false);
   };
@@ -65,10 +56,10 @@ export function ScoreTable({ language }: ScoreTableProps) {
 
   useEffect(() => {
     if (isYahtzeeBonusLocked) {
-      setYahtzeeBonus(0);
+      onYahtzeeBonusChange(0);
       setYahtzeeBonusEditing(false);
     }
-  }, [isYahtzeeBonusLocked]);
+  }, [isYahtzeeBonusLocked, onYahtzeeBonusChange]);
 
   const upperCategories: CategoryKey[] = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
   const lowerCategories: CategoryKey[] = ['threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance'];
@@ -89,38 +80,95 @@ export function ScoreTable({ language }: ScoreTableProps) {
     return fixedValues[categoryKey] ?? null;
   };
 
-  const handleSaveGame = () => {
-    const clone = document.documentElement.cloneNode(true) as HTMLElement;
-
-    // Collect all CSS and inline it
-    const styles: string[] = [];
-    for (const sheet of Array.from(document.styleSheets)) {
-      try {
-        for (const rule of Array.from(sheet.cssRules)) {
-          styles.push(rule.cssText);
-        }
-      } catch {
-        // skip cross-origin sheets
-      }
-    }
-    const styleEl = document.createElement('style');
-    styleEl.textContent = styles.join('\n');
-
-    // Remove all existing link[rel=stylesheet] and script tags
-    clone.querySelectorAll('link[rel="stylesheet"], script').forEach((el) => el.remove());
-    clone.querySelector('head')?.appendChild(styleEl);
-
-    const html = `<!DOCTYPE html>\n${clone.outerHTML}`;
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
+  const handleSaveGame = async () => {
     const now = new Date();
     const date = now.toISOString().slice(0, 10);
     const time = now.toTimeString().slice(0, 8).replace(/:/g, '-');
-    a.download = `yahtzee-${date}_${time}.html`;
+    const suggestedName = `yahtzee-${date}_${time}.json`;
+
+    const data = JSON.stringify({
+      version: 1,
+      name: playerName,
+      language,
+      scores,
+      yahtzeeBonus,
+      savedAt: now.toISOString(),
+    }, null, 2);
+
+    if ('showSaveFilePicker' in window) {
+      try {
+        const handle = await (window as unknown as { showSaveFilePicker: (opts: { suggestedName: string; types: { description: string; accept: Record<string, string[]> }[] }) => Promise<FileSystemFileHandle> }).showSaveFilePicker({
+          suggestedName,
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(data);
+        await writable.close();
+        return;
+      } catch (e) {
+        if ((e as DOMException).name === 'AbortError') return;
+      }
+    }
+
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = suggestedName;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const showFileError = (message: string) => {
+    setFileError(message);
+    if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
+    errorTimerRef.current = setTimeout(() => setFileError(null), 5000);
+  };
+
+  const validateGameData = (data: unknown): data is { scores: ScoresData; yahtzeeBonus: number; name?: string; language?: Language } => {
+    if (typeof data !== 'object' || data === null) return false;
+    const obj = data as Record<string, unknown>;
+
+    // Validate scores
+    if (typeof obj.scores !== 'object' || obj.scores === null) return false;
+    const s = obj.scores as Record<string, unknown>;
+    for (const key of ALL_CATEGORY_KEYS) {
+      if (!(key in s)) return false;
+      if (s[key] !== null && typeof s[key] !== 'number') return false;
+    }
+
+    // Validate yahtzeeBonus
+    if (typeof obj.yahtzeeBonus !== 'number') return false;
+    if (obj.yahtzeeBonus < 0 || obj.yahtzeeBonus > 1000 || obj.yahtzeeBonus % 100 !== 0) return false;
+
+    // Optional fields
+    if ('language' in obj && obj.language !== 'uk' && obj.language !== 'en') return false;
+    if ('name' in obj && typeof obj.name !== 'string') return false;
+
+    return true;
+  };
+
+  const handleOpenGame = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result as string);
+        if (!validateGameData(data)) {
+          showFileError(t.invalidFile);
+          return;
+        }
+        onLoadGame(data);
+      } catch {
+        showFileError(t.invalidFile);
+      }
+    };
+    reader.readAsText(file);
+
+    // Reset input so the same file can be selected again
+    e.target.value = '';
   };
 
   const renderRow = (categoryKey: CategoryKey, categoryName: string) => {
@@ -131,7 +179,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
         <div className="score-grid-cell">
           <ScoreCell
             value={scores[categoryKey]}
-            onChange={(value) => handleScoreChange(categoryKey, value)}
+            onChange={(value) => onScoreChange(categoryKey, value)}
             fixedValue={fixedValue}
           />
         </div>
@@ -212,7 +260,7 @@ export function ScoreTable({ language }: ScoreTableProps) {
                 <select
                   value={yahtzeeBonus}
                   onChange={(e) => {
-                    setYahtzeeBonus(Number(e.target.value));
+                    onYahtzeeBonusChange(Number(e.target.value));
                     setYahtzeeBonusEditing(false);
                   }}
                   onBlur={() => setYahtzeeBonusEditing(false)}
@@ -241,9 +289,22 @@ export function ScoreTable({ language }: ScoreTableProps) {
         {t.grandTotal}: {grandTotal}
       </div>
 
-      <button className="save-game-button" onClick={handleSaveGame}>
-        {t.saveGame}
-      </button>
+      <div className="game-actions">
+        <button className="open-game-button" onClick={() => fileInputRef.current?.click()}>
+          {t.openGame}
+        </button>
+        <button className="save-game-button" onClick={handleSaveGame}>
+          {t.saveGame}
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json"
+          onChange={handleOpenGame}
+          style={{ display: 'none' }}
+        />
+      </div>
+      {fileError && <div className="file-error">{fileError}</div>}
     </div>
   );
 }
