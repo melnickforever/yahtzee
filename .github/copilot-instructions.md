@@ -18,20 +18,21 @@ Single-page Next.js 14 app for generating Yahtzee score tables. Bilingual (Ukrai
 ```
 app/
   layout.tsx              — Root layout (only server component, exports Metadata/Viewport)
-  page.tsx                — Main page (client component, owns language + playerName state)
+  page.tsx                — Main page (client component, owns language, playerName, scores, yahtzeeBonus state + localStorage persistence)
   i18n.ts                 — Bilingual translations (uk/en), exports Language type + translations object
   globals.css             — All styles (CSS Grid layout, responsive breakpoints at 768px)
   components/
     LanguageSwitcher.tsx   — <select> dropdown toggling uk/en
     RulesReference.tsx     — Collapsible rules table (upper/lower sections + Joker Rule)
     ScoreCell.tsx          — Editable cell (text input or <select> for fixed-value categories)
-    ScoreTable.tsx         — Main scoring grid (13 categories, single score column per category)
+    ScoreTable.tsx         — Main scoring grid (13 categories, exports CategoryKey/ScoresData types, JSON save/load)
 ```
 
 ## Architecture Rules
 
 - **All components are client components** (`'use client'`). Only `layout.tsx` is a server component.
-- **State flows downward only** via props. `page.tsx` passes `language` to all children. `ScoreTable` owns its own `scores` state internally.
+- **State flows downward only** via props. `page.tsx` owns all game state (`language`, `playerName`, `scores`, `yahtzeeBonus`) and passes it to children. `ScoreTable` receives scores/bonus via props, keeps only UI state (`yahtzeeBonusEditing`, `showClearConfirm`, `fileError`) internally.
+- **localStorage persistence**: `page.tsx` auto-saves `{ scores, yahtzeeBonus, playerName, language, expiresAt }` to `localStorage` key `"yahtzee-game-state"` on every state change with a 1-day sliding expiry. On mount, loads saved data if not expired.
 - **No memoization** — derived values (totals, bonuses) are computed inline. Don't add `useMemo`/`useCallback` unless there's a measured perf problem.
 - **Path alias**: Use `@/app/...` for imports (configured in tsconfig.json as `@/* → ./*`).
 
@@ -61,6 +62,9 @@ app/
 - **Yahtzee bonus**: +100 per additional Yahtzee — editable by user (not auto-calculated).
 - **Single score per category**: Each category has one score value (`number | null`), no rounds/columns.
 - **Table layout**: 2-column grid (Category | Score). Each category filled once per game.
+- **Save Game**: Downloads game data as JSON (`yahtzee-YYYY-MM-DD_HH-MM-SS.json`). Uses `showSaveFilePicker` for native "Save As" dialog when available, falls back to Blob download.
+- **Open Game**: Loads a JSON file, validates all 13 category keys and yahtzeeBonus (0–1000, multiple of 100). Shows error message (auto-dismiss 5s) on invalid file.
+- **ScoreTable props**: `scores`, `onScoreChange`, `yahtzeeBonus`, `onYahtzeeBonusChange`, `onClearScores`, `onLoadGame`, `playerName`, `language`.
 
 ## Yahtzee Rules (for context)
 

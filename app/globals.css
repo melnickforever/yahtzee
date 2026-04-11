@@ -511,24 +511,56 @@ input[type='text'] {
 }
 
 /* Save Game Button */
-.save-game-button {
-  display: block;
-  width: 100%;
+.game-actions {
+  display: flex;
+  gap: 12px;
   margin-top: 16px;
+}
+
+.save-game-button,
+.open-game-button {
+  flex: 1;
   padding: 14px;
-  background-color: #2d6b3f;
-  color: #fdf6e3;
-  border: 2px solid #1e5430;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.15s ease;
-  box-shadow: 0 2px 6px rgba(30, 84, 48, 0.2);
+}
+
+.save-game-button {
+  display: block;
+  background-color: #8b4513;
+  color: #fdf6e3;
+  border: 2px solid #6b3410;
+  box-shadow: 0 2px 6px rgba(107, 52, 16, 0.2);
 }
 
 .save-game-button:hover {
+  background-color: #a0521a;
+}
+
+.open-game-button {
+  background-color: #2d6b3f;
+  color: #fdf6e3;
+  border: 2px solid #1e5430;
+  box-shadow: 0 2px 6px rgba(30, 84, 48, 0.2);
+}
+
+.open-game-button:hover {
   background-color: #367a4a;
+}
+
+.file-error {
+  margin-top: 10px;
+  padding: 10px 14px;
+  color: #a02020;
+  background-color: #fde8e8;
+  border: 1px solid #e0b0b0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
 }
 
 /* Score Cell */

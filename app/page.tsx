@@ -1,19 +1,83 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Language, translations } from '@/app/i18n';
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher';
 import { DiceLogo } from '@/app/components/DiceLogo';
 import { DiceGame } from '@/app/components/DiceGame';
 import { RulesReference } from '@/app/components/RulesReference';
-import { ScoreTable } from '@/app/components/ScoreTable';
+import { ScoreTable, CategoryKey, ScoresData } from '@/app/components/ScoreTable';
+
+const STORAGE_KEY = 'yahtzee-game-state';
+const EXPIRY_MS = 86400000; // 24 hours
+
+const defaultScores: ScoresData = {
+  ones: null, twos: null, threes: null, fours: null, fives: null, sixes: null,
+  threeOfAKind: null, fourOfAKind: null, fullHouse: null,
+  smallStraight: null, largeStraight: null, yahtzee: null, chance: null,
+};
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('uk');
   const [playerName, setPlayerName] = useState('');
   const [isPlayerNameSaved, setIsPlayerNameSaved] = useState(false);
   const [gameActive, setGameActive] = useState(false);
+  const [scores, setScores] = useState<ScoresData>(defaultScores);
+  const [yahtzeeBonus, setYahtzeeBonus] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState(false);
   const t = translations[language];
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data.expiresAt > Date.now()) {
+          setScores(data.scores ?? defaultScores);
+          setYahtzeeBonus(data.yahtzeeBonus ?? 0);
+          setPlayerName(data.playerName ?? '');
+          setLanguage(data.language ?? 'uk');
+          if (data.playerName) setIsPlayerNameSaved(true);
+        }
+      }
+    } catch {
+      // ignore corrupt data
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Save to localStorage on every state change (sliding expiry)
+  useEffect(() => {
+    if (!isLoaded) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        scores, yahtzeeBonus, playerName, language,
+        expiresAt: Date.now() + EXPIRY_MS,
+      }));
+    } catch {
+      // ignore storage full
+    }
+  }, [isLoaded, scores, yahtzeeBonus, playerName, language]);
+
+  const handleScoreChange = useCallback((category: CategoryKey, value: number | null) => {
+    setScores((prev) => ({ ...prev, [category]: value }));
+  }, []);
+
+  const handleClearScores = useCallback(() => {
+    setScores(defaultScores);
+    setYahtzeeBonus(0);
+  }, []);
+
+  const handleLoadGame = useCallback((data: { scores: ScoresData; yahtzeeBonus: number; name?: string; language?: Language }) => {
+    setScores(data.scores);
+    setYahtzeeBonus(data.yahtzeeBonus);
+    if (data.name !== undefined) {
+      setPlayerName(data.name);
+      setIsPlayerNameSaved(!!data.name);
+    }
+    if (data.language) setLanguage(data.language);
+  }, []);
 
   const smoothScroll = useCallback((targetY: number, duration = 1200) => {
     const startY = window.scrollY;
@@ -86,7 +150,16 @@ export default function Home() {
           smoothScroll(0, 1200);
         }} />}
         <RulesReference language={language} />
-        <ScoreTable language={language} />
+        <ScoreTable
+          language={language}
+          scores={scores}
+          onScoreChange={handleScoreChange}
+          yahtzeeBonus={yahtzeeBonus}
+          onYahtzeeBonusChange={setYahtzeeBonus}
+          onClearScores={handleClearScores}
+          onLoadGame={handleLoadGame}
+          playerName={playerName}
+        />
       </main>
       <script
         type="application/ld+json"

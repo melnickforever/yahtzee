@@ -13,9 +13,11 @@ A board-game-styled Yahtzee scoring table built with Next.js, TypeScript, and Re
 - **Yahtzee Bonus**: Editable dropdown (0–1000 in steps of 100)
 - **Automatic Calculations**: Upper section bonus (+35 if total ≥ 63) and grand total
 - **Clear Score**: Broom button in the score table header resets all scores and bonuses; requires confirmation before clearing
-- **Rules Reference**: Collapsible section with full gameplay summary, scoring table, Joker Rule, and special rules
+- **Auto-Save**: Game state (scores, bonuses, player name, language) is automatically saved to browser localStorage on every change with a 1-day sliding expiry. Data persists across page reloads.
+- **Save Game**: Download the current scorecard as a JSON file (`yahtzee-YYYY-MM-DD_HH-MM-SS.json`). Uses native "Save As" dialog (Chrome/Edge) or automatic download (Firefox/Safari).
+- **Open Game**: Load a previously saved JSON game file. Validates file structure and shows an error message for invalid files.
 - **Player Name**: Save and edit player name
-- **Save Game**: Download the current scorecard as a self-contained HTML file (with all styles inlined) — works offline
+- **Rules Reference**: Collapsible section with full gameplay summary, scoring table, Joker Rule, and special rules
 - **Dice Game Mode**: Built-in dice roller — tap the logo to enter game mode, roll up to 3 times per turn, keep/release dice between rolls
 - **Mobile Responsive**: Optimized for phones in portrait and landscape
 
